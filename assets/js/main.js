@@ -1,10 +1,5 @@
 "use strict";
 const debug = false
-    // import SlotMachine from './slotMachine.js';
-    // const fruits = "🍇,🍈,🍉,🍊,🍋,🍌,🍍,🥭,🍎,🍏,🍐,🍑,🍒".split(",");
-let spins = 0;
-let wins = [];
-let loses = 0;
 
 const { log, warn, error } = console;
 
