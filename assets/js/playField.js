@@ -1,13 +1,28 @@
+// const element = document.getElementById('some-element-you-want-to-animate');
+let start1, start2, start3;
+let speed;
+
+function y2(x) {
+    return Math.pow(0.06 * x, -0.96738) * 1000;
+}
+
+function y1(x) {
+    return Math.pow(0.06 * x, -0.9665) * 1000;
+}
+
+function y0(x) {
+    return Math.pow(0.1 * x, -0.879) * 1000;
+}
+
 class PlayField {
     constructor(parent, options) {
         this.parent = parent;
         this.options = options;
         this.hldButtons = getEl(".btnHold");
-        this._reels = getEl(".reel");
-        this._reelsObj = null;
+        this._reels = Array.from(getEl(".reel"));
         this._hold = [];
         this._holdEnabled = false;
-        this._spinEnabled = false;
+        this._flags = { spin: false, spinning: false, hold: false };
         this._sounds = {
             hold: new Audio("./assets/snd/hold.wav"),
             spin: new Audio("./assets/snd/spin.wav"),
@@ -28,15 +43,56 @@ class PlayField {
                 "./assets/snd/loses11.wav",
             ],
             loses: new Audio(), //crowd-groan.wav'),
-            getsHold: new Audio(
-                "./assets/snd/getsHold.wav"
-            ), //car_break.wav'),
+            getsHold: new Audio("./assets/snd/getsHold.wav"), //car_break.wav'),
             start: new Audio("./assets/snd/gameStart.wav"),
-            gameOver: new Audio(
-                "./assets/snd/gameOver.wav"
-            ),
+            gameOver: new Audio("./assets/snd/gameOver.wav"),
         };
-        this.spinning = false;
+        this.initEventListeners();
+        this.extendReelsProp();
+    }
+    get isSpin() {
+        return this._flags.spin;
+    }
+    get isSpinning() {
+        return this._flags.spinning;
+    }
+
+    set isSpin(value) {
+        this._flags.spin = value;
+    }
+    set isSpinning(value) {
+        this._flags.spinning = value;
+    }
+    initEventListeners() {
+        document.addEventListener(
+            "reel",
+            function(event) {
+                // (1)
+                if (event.detail.status == "completed") {
+                    this.isSpinning = false;
+                    log('asas')
+                    this.clearHold();
+                    this.displayOverlay(false);
+                }
+                if (event.detail.status == "scrolling") {
+                    if (this.parent.debug) log(`Reel ${event.detail.index} is spinning`);
+                }
+                // log(event, event.detail.index); // Hello from H1
+            }.bind(this)
+        );
+        document.addEventListener("scrolling", function(event) {
+            // (1)
+            log(event, event.type, event.detail.index); // Hello from H1
+        });
+    }
+
+    sendEvent(elem, type, obj) {
+        elem.dispatchEvent(
+            new CustomEvent(type, {
+                bubbles: true,
+                detail: obj,
+            })
+        );
     }
 
     set hold(value) {
@@ -45,59 +101,48 @@ class PlayField {
         }
     }
 
-    set spin(value) {
-        this._spinEnabled = value;
-    }
-
-    set reelsObj(reels) {
-        this._reelsObj = [{
-                lnHeight: parseInt(
-                    window
-                    .getComputedStyle(reels[0])
-                    .getPropertyValue("line-height")
-                    .replace("px", "")
-                ),
-                fruits: Array.from(reels[0].innerHTML),
-                index: 0,
-            },
-            {
-                lnHeight: parseInt(
-                    window
-                    .getComputedStyle(reels[1])
-                    .getPropertyValue("line-height")
-                    .replace("px", "")
-                ),
-                fruits: Array.from(reels[1].innerHTML),
-                index: 1,
-            },
-            {
-                lnHeight: parseInt(
-                    window
-                    .getComputedStyle(reels[2])
-                    .getPropertyValue("line-height")
-                    .replace("px", "")
-                ),
-                fruits: Array.from(reels[2].innerHTML),
-                index: 2,
-            },
-        ];
-    }
-
-    get reelsObj() {
-        return this._reelsObj;
-    }
-
-    get spin() {
-        return this._spinEnabled;
-    }
-
     get hold() {
         return this._hold;
     }
 
     get reels() {
-        this._reels = getEl(".reel");
         return this._reels;
+    }
+
+    getFruits(value) {
+        return Array.from(this.reels[value].innerHTML);
+    }
+
+    extendReelsProp() {
+        this.reels.forEach((reel, index) => {
+            reel.lnHeight = parseInt(
+                window
+                .getComputedStyle(this.reels[index])
+                .getPropertyValue("line-height")
+                .replace("px", "")
+            );
+            reel.index = index;
+            reel.events = {
+                idle: function() {
+                    this.sendEvent(this.reels[index], "reel", {
+                        index: index,
+                        status: "idle",
+                    });
+                }.bind(this),
+                scrolling: function() {
+                    this.sendEvent(this.reels[index], "reel", {
+                        index: index,
+                        status: "scrolling",
+                    });
+                }.bind(this),
+                spinFinished: function() {
+                    this.sendEvent(this.reels[index], "reel", {
+                        index: index,
+                        status: "completed",
+                    });
+                }.bind(this),
+            };
+        });
     }
 
     set unHold(value) {
@@ -127,6 +172,7 @@ class PlayField {
     };
 
     reelSpinsSound = () => {
+        this._sounds.spin.play();
         const tick = this._sounds.reelSpins;
         const sounds = [];
         const obj = this;
@@ -139,7 +185,7 @@ class PlayField {
             setTimeout(clearInterval, (index + 1) * 100, sounds[index]);
         }
         let keeper = setInterval(function() {
-            if (!obj.spinning) {
+            if (!obj.isSpinning) {
                 sounds.forEach((sound) => {
                     clearInterval(sound);
                 });
@@ -155,7 +201,85 @@ class PlayField {
             button.classList.remove("holdNormal");
         });
         this.holdEnabled = true;
+        log(buttons, this.holdEnabled)
     };
+
+    animateReel3(timestamp) {
+        const lastReel = Array.from(Array(this.reels.length).keys())
+            .filter((ele) => !this.onHold(ele))
+            .slice(-1);
+        if (start3 === undefined) start3 = timestamp;
+
+        if (speed === undefined) speed = 0.1;
+        const elapsed = timestamp - start3;
+        // speed--
+        // `Math.min()` is used here to make sure that the element stops at exactly 200px.
+        this.reels[2].scrollTop = Math.min(y2(elapsed) * elapsed, 19928);
+        log(elapsed, this.reels[2].scrollTop);
+        if (elapsed < 4000 || this.reels[2].scrollTop != 19928) {
+            // Stop the animation after 2 seconds
+            window.requestAnimationFrame(this.animateReel3.bind(this));
+        } else {
+            this._sounds.reelStop.play();
+            if (lastReel == 2) {
+                log('last beeeeeeach')
+                this.reels[2].events.spinFinished()
+            }
+            start3 = undefined;
+        }
+        return;
+    }
+
+    animateReel2(timestamp) {
+        const lastReel = Array.from(Array(this.reels.length).keys())
+            .filter((ele) => !this.onHold(ele))
+            .slice(-1);
+        if (start2 === undefined) start2 = timestamp;
+
+        if (speed === undefined) speed = 0.1;
+        const elapsed = timestamp - start2;
+        // speed--
+        // `Math.min()` is used here to make sure that the element stops at exactly 200px.
+        this.reels[1].scrollTop = Math.min(y1(elapsed) * elapsed, 19928);
+        log(elapsed, this.reels[1].scrollTop);
+        if (elapsed < 3500 || this.reels[1].scrollTop != 19928) {
+            // Stop the animation after 2 seconds
+            window.requestAnimationFrame(this.animateReel2.bind(this));
+        } else {
+            this._sounds.reelStop.play();
+            if (lastReel == 1) {
+                this.reels[1].events.spinFinished()
+            }
+            start2 = undefined;
+        }
+        return;
+    }
+
+    animateReel1(timestamp) {
+        const lastReel = Array.from(Array(this.reels.length).keys())
+            .filter((ele) => !this.onHold(ele))
+            .slice(-1);
+
+        if (start1 === undefined) start1 = timestamp;
+
+        if (speed === undefined) speed = 0.1;
+        const elapsed = timestamp - start1;
+        // speed--
+        // `Math.min()` is used here to make sure that the element stops at exactly 200px.
+        this.reels[0].scrollTop = Math.min(y0(elapsed) * elapsed, 19928);
+        log(elapsed, this.reels[0].scrollTop);
+        if (elapsed < 3000 || this.reels[0].scrollTop != 19928) {
+            // Stop the animation after 2 seconds
+            window.requestAnimationFrame(this.animateReel1.bind(this));
+        } else {
+            this._sounds.reelStop.play();
+            if (lastReel == 0) {
+                this.reels[0].events.spinFinished()
+            }
+            start1 = undefined;
+        }
+        return;
+    }
 
     clearHold = () => {
         const buttons = Array.from(this.hldButtons);
@@ -168,6 +292,7 @@ class PlayField {
     };
 
     toogleHoldBtn = (element, index) => {
+        log(this.holdEnabled)
         if (this.holdEnabled) {
             this._sounds.hold.play();
             if (element.classList.contains("holdActive")) {
@@ -182,7 +307,7 @@ class PlayField {
         }
     };
     resetReels = () => {
-        const reels = Array.from(this.reels);
+        const reels = this.reels;
         let reelsTotHeight = 0;
         while (reelsTotHeight != 53000 * (3 - this.hold.length)) {
             reelsTotHeight = 0;
@@ -200,90 +325,30 @@ class PlayField {
     };
 
     play = () => {
-        if (this.spin) {
-            this.animateReels();
-            this.spin = false;
+        if (!this.isSpin) {
             this.resetReels();
-            this.reelsObj = this.reels;
+            this.isSpin = true;
             this.parent.resultsField.spins++;
             this.parent.resultsField.inOut = -1;
-            this._sounds.spin.play();
-            this.reelSpinsSound();
+            this.animateReels();
         }
     };
 
     spinReel = (index) => {
-        const fps = 60;
-        const interval = 1000 / fps;
-        const duration = this.options.spinDurations[index];
-        for (let counter = 0; counter < duration; counter++) {
-            if (counter == duration - 1) {
-                setTimeout(
-                    this.finalAnimiation.bind(this),
-                    10 * interval * counter,
-                    index
-                );
-            } else {
-                let distance =
-                    ((index == 0 ? 110 : index == 1 ? 106 : 102) / (counter + 2)) * 1;
-                let intervalId = setInterval(
-                    this.scrollReel.bind(this),
-                    interval,
-                    index,
-                    distance
-                );
-                setTimeout(clearInterval, 10 * interval * (counter + 1), intervalId);
-            }
-        }
-    };
-
-    finalAnimiation = (index) => {
-        const lnHeight = this.reelsObj[index].lnHeight;
-        const reel = this.reels[index];
-        const lastReel = Array.from(Array(this.reels.length).keys())
-            .filter((ele) => !this.onHold(ele))
-            .slice(-1);
-        if (this.parent.debug) log(lastReel, index);
-
-        const offset =
-            reel.scrollTop - Math.round(reel.scrollTop / lnHeight) * lnHeight;
-        const target = roundHundreds(reel.scrollTop);
-        const fps = 250;
-        const interval = 1000 / fps;
-        const timer = interval * Math.abs(offset);
-        if (this.parent.debug) log(offset, target, interval, Math.abs(offset));
-        if (offset < 0) {
-            let timerId = setInterval(this.scrollReel.bind(this), interval, index, 1);
-            setTimeout(clearInterval, timer, timerId);
-            this._sounds.reelStop.play();
-            if (lastReel == index) {
-                setTimeout(this.displayOverlay.bind(this), 250);
-                this.clearHold();
-                this.spinning = false;
-            }
-        } else {
-            let timerId = setInterval(
-                this.scrollReel.bind(this),
-                interval,
-                index, -1
-            );
-            this._sounds.reelStop.play();
-            setTimeout(clearInterval, timer, timerId);
-            if (lastReel == index) {
-                setTimeout(this.displayOverlay.bind(this), timer);
-                this.clearHold();
-                this.spinning = false;
-            }
-        }
+        if (index == 0) window.requestAnimationFrame(this.animateReel1.bind(this));
+        if (index == 1) window.requestAnimationFrame(this.animateReel2.bind(this));
+        if (index == 2) window.requestAnimationFrame(this.animateReel3.bind(this));
     };
 
     animateReels = () => {
-        this.spinning = true;
+        this.reelSpinsSound();
+        this.isSpinning = true;
         for (let index = 0; index < this.reels.length; index++) {
             if (!this.onHold(index)) {
                 this.spinReel(index);
             }
         }
+        this.holdEnabled = false
     };
 
     displayOverlay = (simulate = false) => {
@@ -291,15 +356,9 @@ class PlayField {
         if (simulate) results = Array(3).fill(this.parent.generateFruit());
         else {
             results = [
-                this.reelsObj[0].fruits[
-                    this.reels[0].scrollTop / this.reelsObj[0].lnHeight + 2
-                ],
-                this.reelsObj[1].fruits[
-                    this.reels[1].scrollTop / this.reelsObj[1].lnHeight + 2
-                ],
-                this.reelsObj[2].fruits[
-                    this.reels[2].scrollTop / this.reelsObj[2].lnHeight + 2
-                ],
+                this.getFruits(0)[this.reels[0].scrollTop / this.reels[0].lnHeight + 2],
+                this.getFruits(1)[this.reels[1].scrollTop / this.reels[1].lnHeight + 2],
+                this.getFruits(2)[this.reels[2].scrollTop / this.reels[2].lnHeight + 2],
             ];
         }
         if (this.parent.debug) log(results);
@@ -349,6 +408,6 @@ class PlayField {
                 this.parent.overlay.showMsg(this.options.timeouts.overlay.lose);
             }
         }
-        this.spin = true;
+        this.isSpin = false;
     };
 }
