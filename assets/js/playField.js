@@ -157,6 +157,9 @@ class PlayField {
                 get: () => {
                     return Array.from(reel.innerHTML); //returns list of fruits based on reel innerHTML, useful for checking results
                 },
+                set: (fruits) => {
+                    reel.innerHTML = fruits
+                }
             });
         });
     };
@@ -270,7 +273,7 @@ class PlayField {
                 //iterate reels object
                 if (!reel.isOnHold) {
                     //if reel is not on hold
-                    reel.innerHTML = this.parent //call parent method to generate and shuffle 3 times reel, before returning as string
+                    reel.fruitsList = this.parent //call parent method to generate and shuffle 3 times reel, before returning as string
                         .shuffle3Times(this.parent.generateReel())
                         .join("");
                     reel.scrollTop = 0; //reset reel scrollTop position to 0
