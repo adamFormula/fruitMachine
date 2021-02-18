@@ -1,5 +1,6 @@
 "use strict";
 // easing functions http://goo.gl/5HLl8
+//https://spicyyoghurt.com/tools/easing-functions
 
 const easeInOutExpo = (t, b, c, d) => {
     if (t == 0) return b;

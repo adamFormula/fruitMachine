@@ -11,9 +11,9 @@ class PlayField {
         this._flags = { spin: false, spinning: false, hold: false, lastReel: 0 };
         this._sounds = {
             hold: new Audio("./assets/snd/hold.wav"),
-            spin: new Audio("./assets/snd/spin.wav"),
-            reelStop: new Audio("./assets/snd/reelStop.wav"),
-            reelSpins: new Audio("./assets/snd/reelSpins.wav"),
+            reelStarting: new Audio("./assets/snd/spin.wav"),
+            reelStopping: new Audio("./assets/snd/reelStop.wav"),
+            reelSpinning: new Audio("./assets/snd/reelSpins.wav"),
             win: new Audio("./assets/snd/win.wav"),
             loseTracks: [
                 "./assets/snd/loses1.wav",
@@ -56,20 +56,14 @@ class PlayField {
                 // (1)
                 if (event.detail.status == "completed") {
                     this.isSpinning = false;
-                    log("asas");
                     this.clearHold();
                     this.displayOverlay(false);
                 }
                 if (event.detail.status == "scrolling") {
                     if (this.parent.debug) log(`Reel ${event.detail.index} is spinning`);
                 }
-                // log(event, event.detail.index); // Hello from H1
             }.bind(this)
         );
-        document.addEventListener("scrolling", function(event) {
-            // (1)
-            log(event, event.type, event.detail.index); // Hello from H1
-        });
     }
 
     sendEvent(elem, type, obj) {
@@ -111,6 +105,11 @@ class PlayField {
             reel.isLast = function() {
                 return this._flags.lastReel == index ? true : false;
             }.bind(this);
+            reel.sounds = {
+                spinning: function() { this._sounds.reelSpinning.play() }.bind(this),
+                stopping: function() { this._sounds.reelStopping.play() }.bind(this),
+                starting: function() { this._sounds.reelStarting.play() }.bind(this)
+            }
             reel.events = {
                 idle: function() {
                     this.sendEvent(this.reels[index], "reel", {
@@ -151,36 +150,8 @@ class PlayField {
         return this._holdEnabled;
     }
 
-    scrollReel = (index, distance) => {
-        const reel = this.reels[index];
-        reel.scrollTop += distance;
-    };
-
     onHold = (value) => {
         return this._hold.includes(value);
-    };
-
-    reelSpinsSound = () => {
-        this._sounds.spin.play();
-        const tick = this._sounds.reelSpins;
-        const sounds = [];
-        const obj = this;
-        for (let index = 0; index < 22; index++) {
-            sounds.push(
-                setInterval(function() {
-                    tick.play();
-                }, 22 * (index + 1))
-            );
-            setTimeout(clearInterval, (index + 1) * 100, sounds[index]);
-        }
-        let keeper = setInterval(function() {
-            if (!obj.isSpinning) {
-                sounds.forEach((sound) => {
-                    clearInterval(sound);
-                });
-                clearInterval(keeper);
-            }
-        }, 40);
     };
 
     activateHold = () => {
@@ -190,31 +161,37 @@ class PlayField {
             button.classList.remove("holdNormal");
         });
         this.holdEnabled = true;
-        log(buttons, this.holdEnabled);
     };
 
-    scrollTo = (to, duration, easingFn, element) => {
+    scrollReel = (to, duration, easingFn, element) => {
         let start = element.scrollTop,
             change = to - start,
             currentTime = 0,
-            increment = 20;
+            increment = 20,
+            displacement;
+        element.sounds.starting()
         const animateScroll = () => {
             // increment the time
             currentTime += increment;
-            // move scrollTop of element by result of in-out easing function
+            displacement = (typeof(displacement) === 'undefined') ? 0 : element.scrollTop
+                // move scrollTop of element by result of easing function
             element.scrollTop = easingFn(currentTime, start, change, duration);
-
+            displacement -= element.scrollTop
+            if (Math.abs(displacement) > 10 && element.isLast()) {
+                element.sounds.spinning();
+            }
             // do the animation unless its over
             if (currentTime < duration) {
                 window.requestAnimationFrame(animateScroll);
             } else {
+                element.sounds.stopping()
                 if (
                     element.events.spinFinished &&
                     typeof element.events.spinFinished === "function" &&
                     element.isLast()
                 ) {
                     // the animation is done so lets callback
-                    element.events.spinFinished();
+                    setTimeout(element.events.spinFinished, 100); //little delay before calling event to let sounds finish before
                     if (this.parent.debug) log(
                         currentTime,
                         duration,
@@ -284,13 +261,12 @@ class PlayField {
         this.reels.forEach((reel) => {
             if (!this.onHold(reel.index)) {
                 this._flags.lastReel = reel.index;
+                this.scrollReel(7950, 2500 + reel.index * 500, easeOutQuad, reel);
             }
-            this.scrollTo(7950, 2500 + reel.index * 500, easeOutQuad, reel);
         });
     };
 
     animateReels = () => {
-        this.reelSpinsSound();
         this.isSpinning = true;
         this.spinReels();
         this.holdEnabled = false;
