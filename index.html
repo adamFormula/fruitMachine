@@ -16,7 +16,7 @@
     <script src="./assets/js/overlay.js" defer></script>
     <script src="./assets/js/slotMachine.js" defer></script>
     <script src="./assets/js/main.js" defer></script>
-    <title>Fruit Machine</title>
+    <title>Fruit Machine by Adam R. &copy; 2021</title>
 </head>
 
 <body>
@@ -81,9 +81,9 @@
                 <div id="reel1" class="reel centeredH"></div>
                 <div id="reel2" class="reel centeredH"></div>
                 <div id="reel3" class="reel centeredH"></div>
-                <div id="holdBtn1" class="btn centered"><button class="btnHold whtTxt holdNormal" onclick="game.playField.toogleHoldBtn(this,0)">HOLD!</button></div>
-                <div id="holdBtn2" class="btn centered"><button class="btnHold whtTxt holdNormal" onclick="game.playField.toogleHoldBtn(this,1)">HOLD!</button></div>
-                <div id="holdBtn3" class="btn centered"><button class="btnHold whtTxt holdNormal" onclick="game.playField.toogleHoldBtn(this,2)">HOLD!</button></div>
+                <div id="holdBtn1" class="btn centered"><button class="btnHold whtTxt holdNormal" data-reel-number="0" onclick="game.playField.toogleHoldBtn(this)">HOLD!</button></div>
+                <div id="holdBtn2" class="btn centered"><button class="btnHold whtTxt holdNormal" data-reel-number="1" onclick="game.playField.toogleHoldBtn(this)">HOLD!</button></div>
+                <div id="holdBtn3" class="btn centered"><button class="btnHold whtTxt holdNormal" data-reel-number="2" onclick="game.playField.toogleHoldBtn(this)">HOLD!</button></div>
                 <div id="spinBtn" class="btn centered"><button class="whtTxt" onclick="game.playField.spinBtnClick()">SPIN!</button></div>
             </div>
         </div>

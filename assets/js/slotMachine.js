@@ -126,6 +126,6 @@ class SlotMachine {
     }
 
     simulateWin() {
-        this.playField.displayOverlay(true)
+        this.playField.processResults(true)
     }
 }
