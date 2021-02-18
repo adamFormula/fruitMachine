@@ -95,11 +95,6 @@ class PlayField {
         );
     };
 
-    getFruits = (value) => {
-        //returns list of fruits based on reel innerHTML, useful for checking results
-        return Array.from(this.reels[value].innerHTML);
-    }
-
     addPropertiesToReels = () => {
         //extends reels object with additional properties
         this.reels.forEach((reel, index) => {
@@ -158,8 +153,13 @@ class PlayField {
                     reel._isOnHold = value;
                 },
             });
+            Object.defineProperty(reel, "fruitsList", {
+                get: () => {
+                    return Array.from(reel.innerHTML); //returns list of fruits based on reel innerHTML, useful for checking results
+                },
+            });
         });
-    }
+    };
 
     scrollReel = (to, duration, easingFn, reel) => {
         //reel scroll animation with easing function
@@ -300,11 +300,10 @@ class PlayField {
         if (simulate) results = Array(3).fill(this.parent.generateFruit());
         //if simulate : true generate random winning result
         else {
-            results = [
-                this.getFruits(0)[this.reels[0].scrollTop / this.reels[0].lnHeight + 2], //read each reel fruit based on current scrollTop position / reel line height + offset (we care about middle slot position)
-                this.getFruits(1)[this.reels[1].scrollTop / this.reels[1].lnHeight + 2], //read each reel fruit based on current scrollTop position / reel line height + offset (we care about middle slot position)
-                this.getFruits(2)[this.reels[2].scrollTop / this.reels[2].lnHeight + 2], //read each reel fruit based on current scrollTop position / reel line height + offset (we care about middle slot position)
-            ];
+            //iterate reels and return fruit based on current scrollTop position / reel line height + offset (3rd fruit in visible reel)
+            results = this.reels.map((reel) => {
+                return reel.fruitsList[reel.scrollTop / reel.lnHeight + 2];
+            });
         }
         if (this.parent.debug) log(results);
         if (
