@@ -36,6 +36,7 @@ class PlayField {
             };
             this.initEventListeners();
             this.addPropertiesToReels();
+            this.addMethodToLoseSound();
         }
         //PROPERTIES
     get isSpinning() {
@@ -158,10 +159,20 @@ class PlayField {
                     return Array.from(reel.innerHTML); //returns list of fruits based on reel innerHTML, useful for checking results
                 },
                 set: (fruits) => {
-                    reel.innerHTML = fruits
-                }
+                    reel.innerHTML = fruits;
+                },
             });
         });
+    };
+
+    addMethodToLoseSound = () => {
+        this._sounds.loses.playRandom = () => {
+            this._sounds.loses.src = this._sounds.loseTracks[ //play choose random loosing sound from array
+                genRandomNumber(this._sounds.loseTracks.length - 1)
+            ];
+            this._sounds.loses.load(); //load into player
+            this._sounds.loses.play(); //play sound}
+        };
     };
 
     scrollReel = (to, duration, easingFn, reel) => {
@@ -354,11 +365,7 @@ class PlayField {
             } else {
                 //otherwise...
                 this.parent.overlay.msg = "No win this TIME!!!";
-                this._sounds.loses.src = this._sounds.loseTracks[ //play choose random loosing sound from array
-                    genRandomNumber(this._sounds.loseTracks.length - 1)
-                ];
-                this._sounds.loses.load(); //load into player
-                this._sounds.loses.play(); //play sound
+                this._sounds.loses.playRandom(); //play random loosing sound
                 this.parent.overlay.showMsg(this.options.timeouts.overlay.lose); //show overlay message
             }
         }
