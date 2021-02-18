@@ -75,17 +75,17 @@ class PlayField {
         document.addEventListener(
             //adds event listener for events coming from reels animation
             "reel",
-            function(event) {
+            (event) => {
                 // (1)
                 if (event.detail.status == "completed") {
                     this.clearHold();
                     this.processResults(false);
                 }
-            }.bind(this)
+            }
         );
     }
 
-    sendEvent(elem, type, obj) {
+    sendEvent = (elem, type, obj) => {
         //dispatches events from elements
         elem.dispatchEvent(
             new CustomEvent(type, {
@@ -93,14 +93,14 @@ class PlayField {
                 detail: obj,
             })
         );
-    }
+    };
 
-    getFruits(value) {
+    getFruits = (value) => {
         //returns list of fruits based on reel innerHTML, useful for checking results
         return Array.from(this.reels[value].innerHTML);
     }
 
-    addPropertiesToReels() {
+    addPropertiesToReels = () => {
         //extends reels object with additional properties
         this.reels.forEach((reel, index) => {
             //iterating reels
@@ -114,47 +114,47 @@ class PlayField {
             reel.index = index;
             reel.sounds = {
                 //adding sounds callbacks
-                spinning: function() {
+                spinning: () => {
                     this._sounds.reelSpinning.play();
-                }.bind(this),
-                stopping: function() {
+                },
+                stopping: () => {
                     this._sounds.reelStopping.play();
-                }.bind(this),
-                starting: function() {
+                },
+                starting: () => {
                     this._sounds.reelStarting.play();
-                }.bind(this),
+                },
             }; //adding events callbacks
             reel.events = {
-                idle: function() {
+                idle: () => {
                     this.sendEvent(this.reels[index], "reel", {
                         index: index,
                         status: "idle",
                     });
-                }.bind(this),
-                scrolling: function() {
+                },
+                scrolling: () => {
                     this.sendEvent(this.reels[index], "reel", {
                         index: index,
                         status: "scrolling",
                     });
-                }.bind(this),
-                spinFinished: function() {
+                },
+                spinFinished: () => {
                     this.sendEvent(this.reels[index], "reel", {
                         index: index,
                         status: "completed",
                     });
-                }.bind(this),
+                },
             };
             reel._isOnHold = false;
             Object.defineProperty(reel, "isLast", {
-                get: function() {
+                get: () => {
                     return this._flags.lastReel == reel.index ? true : false;
-                }.bind(this),
+                },
             });
             Object.defineProperty(reel, "isOnHold", {
-                get: function() {
+                get: () => {
                     return reel._isOnHold;
                 },
-                set: function(value) {
+                set: (value) => {
                     reel._isOnHold = value;
                 },
             });
@@ -262,12 +262,11 @@ class PlayField {
     };
 
     resetReels = () => {
-        const reels = this.reels; //reels object assigned to variable
         let reelsTotHeight = 0; //variable to keep sum of reels heights
         while (reelsTotHeight != 53000 * (3 - this.sizeReelsOnHold)) {
             //keep randmosing reels untill total sum of their heights is equal to 3 * 500 * 106 (number of reels * number of slots * line height)
             reelsTotHeight = 0; // zero value of height at each iteration
-            reels.forEach((reel) => {
+            this.reels.forEach((reel) => {
                 //iterate reels object
                 if (!reel.isOnHold) {
                     //if reel is not on hold
