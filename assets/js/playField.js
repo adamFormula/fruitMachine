@@ -1,18 +1,4 @@
-// const element = document.getElementById('some-element-you-want-to-animate');
-let start1, start2, start3;
-let speed;
-
-function y2(x) {
-    return Math.pow(0.06 * x, -0.96738) * 1000;
-}
-
-function y1(x) {
-    return Math.pow(0.06 * x, -0.9665) * 1000;
-}
-
-function y0(x) {
-    return Math.pow(0.1 * x, -0.879) * 1000;
-}
+"use strict";
 
 class PlayField {
     constructor(parent, options) {
@@ -22,7 +8,7 @@ class PlayField {
         this._reels = Array.from(getEl(".reel"));
         this._hold = [];
         this._holdEnabled = false;
-        this._flags = { spin: false, spinning: false, hold: false };
+        this._flags = { spin: false, spinning: false, hold: false, lastReel: 0 };
         this._sounds = {
             hold: new Audio("./assets/snd/hold.wav"),
             spin: new Audio("./assets/snd/spin.wav"),
@@ -70,7 +56,7 @@ class PlayField {
                 // (1)
                 if (event.detail.status == "completed") {
                     this.isSpinning = false;
-                    log('asas')
+                    log("asas");
                     this.clearHold();
                     this.displayOverlay(false);
                 }
@@ -122,6 +108,9 @@ class PlayField {
                 .replace("px", "")
             );
             reel.index = index;
+            reel.isLast = function() {
+                return this._flags.lastReel == index ? true : false;
+            }.bind(this);
             reel.events = {
                 idle: function() {
                     this.sendEvent(this.reels[index], "reel", {
@@ -201,85 +190,43 @@ class PlayField {
             button.classList.remove("holdNormal");
         });
         this.holdEnabled = true;
-        log(buttons, this.holdEnabled)
+        log(buttons, this.holdEnabled);
     };
 
-    animateReel3(timestamp) {
-        const lastReel = Array.from(Array(this.reels.length).keys())
-            .filter((ele) => !this.onHold(ele))
-            .slice(-1);
-        if (start3 === undefined) start3 = timestamp;
+    scrollTo = (to, duration, easingFn, element) => {
+        let start = element.scrollTop,
+            change = to - start,
+            currentTime = 0,
+            increment = 20;
+        const animateScroll = () => {
+            // increment the time
+            currentTime += increment;
+            // move scrollTop of element by result of in-out easing function
+            element.scrollTop = easingFn(currentTime, start, change, duration);
 
-        if (speed === undefined) speed = 0.1;
-        const elapsed = timestamp - start3;
-        // speed--
-        // `Math.min()` is used here to make sure that the element stops at exactly 200px.
-        this.reels[2].scrollTop = Math.min(y2(elapsed) * elapsed, 19928);
-        log(elapsed, this.reels[2].scrollTop);
-        if (elapsed < 4000 || this.reels[2].scrollTop != 19928) {
-            // Stop the animation after 2 seconds
-            window.requestAnimationFrame(this.animateReel3.bind(this));
-        } else {
-            this._sounds.reelStop.play();
-            if (lastReel == 2) {
-                log('last beeeeeeach')
-                this.reels[2].events.spinFinished()
+            // do the animation unless its over
+            if (currentTime < duration) {
+                window.requestAnimationFrame(animateScroll);
+            } else {
+                if (
+                    element.events.spinFinished &&
+                    typeof element.events.spinFinished === "function" &&
+                    element.isLast()
+                ) {
+                    // the animation is done so lets callback
+                    element.events.spinFinished();
+                    if (this.parent.debug) log(
+                        currentTime,
+                        duration,
+                        element.scrollTop,
+                        element.isLast(),
+                        element.index
+                    );
+                }
             }
-            start3 = undefined;
-        }
-        return;
-    }
-
-    animateReel2(timestamp) {
-        const lastReel = Array.from(Array(this.reels.length).keys())
-            .filter((ele) => !this.onHold(ele))
-            .slice(-1);
-        if (start2 === undefined) start2 = timestamp;
-
-        if (speed === undefined) speed = 0.1;
-        const elapsed = timestamp - start2;
-        // speed--
-        // `Math.min()` is used here to make sure that the element stops at exactly 200px.
-        this.reels[1].scrollTop = Math.min(y1(elapsed) * elapsed, 19928);
-        log(elapsed, this.reels[1].scrollTop);
-        if (elapsed < 3500 || this.reels[1].scrollTop != 19928) {
-            // Stop the animation after 2 seconds
-            window.requestAnimationFrame(this.animateReel2.bind(this));
-        } else {
-            this._sounds.reelStop.play();
-            if (lastReel == 1) {
-                this.reels[1].events.spinFinished()
-            }
-            start2 = undefined;
-        }
-        return;
-    }
-
-    animateReel1(timestamp) {
-        const lastReel = Array.from(Array(this.reels.length).keys())
-            .filter((ele) => !this.onHold(ele))
-            .slice(-1);
-
-        if (start1 === undefined) start1 = timestamp;
-
-        if (speed === undefined) speed = 0.1;
-        const elapsed = timestamp - start1;
-        // speed--
-        // `Math.min()` is used here to make sure that the element stops at exactly 200px.
-        this.reels[0].scrollTop = Math.min(y0(elapsed) * elapsed, 19928);
-        log(elapsed, this.reels[0].scrollTop);
-        if (elapsed < 3000 || this.reels[0].scrollTop != 19928) {
-            // Stop the animation after 2 seconds
-            window.requestAnimationFrame(this.animateReel1.bind(this));
-        } else {
-            this._sounds.reelStop.play();
-            if (lastReel == 0) {
-                this.reels[0].events.spinFinished()
-            }
-            start1 = undefined;
-        }
-        return;
-    }
+        };
+        animateScroll();
+    };
 
     clearHold = () => {
         const buttons = Array.from(this.hldButtons);
@@ -292,7 +239,6 @@ class PlayField {
     };
 
     toogleHoldBtn = (element, index) => {
-        log(this.holdEnabled)
         if (this.holdEnabled) {
             this._sounds.hold.play();
             if (element.classList.contains("holdActive")) {
@@ -334,21 +280,20 @@ class PlayField {
         }
     };
 
-    spinReel = (index) => {
-        if (index == 0) window.requestAnimationFrame(this.animateReel1.bind(this));
-        if (index == 1) window.requestAnimationFrame(this.animateReel2.bind(this));
-        if (index == 2) window.requestAnimationFrame(this.animateReel3.bind(this));
+    spinReels = () => {
+        this.reels.forEach((reel) => {
+            if (!this.onHold(reel.index)) {
+                this._flags.lastReel = reel.index;
+            }
+            this.scrollTo(7950, 2500 + reel.index * 500, easeOutQuad, reel);
+        });
     };
 
     animateReels = () => {
         this.reelSpinsSound();
         this.isSpinning = true;
-        for (let index = 0; index < this.reels.length; index++) {
-            if (!this.onHold(index)) {
-                this.spinReel(index);
-            }
-        }
-        this.holdEnabled = false
+        this.spinReels();
+        this.holdEnabled = false;
     };
 
     displayOverlay = (simulate = false) => {
