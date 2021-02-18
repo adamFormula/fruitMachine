@@ -102,9 +102,6 @@ class PlayField {
                 .replace("px", "")
             );
             reel.index = index;
-            reel.isLast = function() {
-                return this._flags.lastReel == index ? true : false;
-            }.bind(this);
             reel.sounds = {
                 spinning: function() { this._sounds.reelSpinning.play() }.bind(this),
                 stopping: function() { this._sounds.reelStopping.play() }.bind(this),
@@ -130,6 +127,19 @@ class PlayField {
                     });
                 }.bind(this),
             };
+            Object.defineProperty(reel, 'isLast', {
+                get: function() {
+                    return this._flags.lastReel == reel.index ? true : false;
+                }.bind(this)
+            })
+            Object.defineProperty(reel, 'isOnHold', {
+                get: function() {
+                    return this._hold.includes(reel.index);
+                }.bind(this),
+                set: function(value) {
+                    this.hold = reel.index;
+                }.bind(this)
+            })
         });
     }
 
@@ -149,10 +159,6 @@ class PlayField {
     get holdEnabled() {
         return this._holdEnabled;
     }
-
-    onHold = (value) => {
-        return this._hold.includes(value);
-    };
 
     activateHold = () => {
         const buttons = Array.from(this.hldButtons);
@@ -177,7 +183,7 @@ class PlayField {
                 // move scrollTop of element by result of easing function
             element.scrollTop = easingFn(currentTime, start, change, duration);
             displacement -= element.scrollTop
-            if (Math.abs(displacement) > 10 && element.isLast()) {
+            if (Math.abs(displacement) > 10 && element.isLast) {
                 element.sounds.spinning();
             }
             // do the animation unless its over
@@ -188,7 +194,7 @@ class PlayField {
                 if (
                     element.events.spinFinished &&
                     typeof element.events.spinFinished === "function" &&
-                    element.isLast()
+                    element.isLast
                 ) {
                     // the animation is done so lets callback
                     setTimeout(element.events.spinFinished, 100); //little delay before calling event to let sounds finish before
@@ -196,7 +202,7 @@ class PlayField {
                         currentTime,
                         duration,
                         element.scrollTop,
-                        element.isLast(),
+                        element.isLast,
                         element.index
                     );
                 }
@@ -259,9 +265,9 @@ class PlayField {
 
     spinReels = () => {
         this.reels.forEach((reel) => {
-            if (!this.onHold(reel.index)) {
+            if (!reel.isOnHold) {
                 this._flags.lastReel = reel.index;
-                this.scrollReel(7950, 2500 + reel.index * 500, easeOutQuad, reel);
+                this.scrollReel(106 * (Math.floor(Math.random() * 10) + 20), 2500 + reel.index * 500, easeOutQuad, reel);
             }
         });
     };
