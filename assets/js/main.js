@@ -30,7 +30,7 @@ let game = new SlotMachine(3, 500, 25, "🍎,🍌,🍒,🥕,🍉,🍅,🥥,🥝,
 game.startGame()
 
 //DONE Reset reels always with exception of hold reels
-//buttons object extended with properties: isActive, isSelected etc...
+//TODO buttons object extended with properties: isActive, isSelected etc...
 //TODO Add events and drive logic with events where appropariate
 //TODO Create sound object, control sounds, playing, non-blocking - blocking playing, sounds queue
 //TODO Create console object to handle playing game in console
