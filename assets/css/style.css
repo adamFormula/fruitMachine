@@ -209,9 +209,9 @@ body {
     left: -5px;
     margin: auto;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr 550px 1fr 1fr 1fr;
-    grid-row-gap: 4.5%;
-    grid-column-gap: 2.3%;
+    grid-template-rows: 1fr 600px 1fr 1fr 1fr;
+    grid-row-gap: 3.5%;
+    grid-column-gap: 4.3%;
     grid-template-areas:
         "options options options"
         "reel1 reel2 reel3"
@@ -223,7 +223,7 @@ body {
     padding: 10px;
     box-shadow: 3px 3px 6px 6px #00000d;
     background-color: black;
-    padding-bottom: 69px;
+    padding-bottom: 50px;
     top: -5px;
 }
 
@@ -266,7 +266,7 @@ body {
 
 #game-container {
     position: relative;
-    top: 30px;
+    top: 10px;
 }
 
 #rules {
@@ -384,8 +384,8 @@ body {
 
 .reel {
     box-sizing: border-box;
-    font-size: 8vh;
-    line-height: 140%;
+    font-size: 8.5vh;
+    line-height: 141%;
     overflow: hidden;
     width: 40%;
     background-color: rgb(255 255 255 / 63%);
@@ -533,7 +533,6 @@ span#dollar {
     position: absolute;
     display: block;
     top: 38.3%;
-    transform: translateY(100%);
     left: 26.4%;
     transform: rotate( 270deg);
 }
