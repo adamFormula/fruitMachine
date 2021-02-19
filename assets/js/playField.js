@@ -286,7 +286,7 @@ class PlayField {
 
     resetReels = () => {
         let reelsTotHeight = 0; //variable to keep sum of reels heights
-        while (reelsTotHeight != 53000 * (3 - this.sizeReelsOnHold)) {
+        while (reelsTotHeight != 53000 * (3 - this.sizeReelsOnHold)||reelsTotHeight != 52666 * (3 - this.sizeReelsOnHold)) {
             //keep randmosing reels untill total sum of their heights is equal to 3 * 500 * 106 (number of reels * number of slots * line height)
             reelsTotHeight = 0; // zero value of height at each iteration
             this.reels.forEach((reel) => {
