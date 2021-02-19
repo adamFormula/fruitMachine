@@ -10,7 +10,7 @@ class PlayField {
         this._hldButtons = Array.from(getEl(".btnHold"));
         this._spinButton = document.querySelector("#spinBtn>button");
         this._reels = Array.from(getEl(".reel"));
-        this._flags = { spinning: false, hold: false};
+        this._flags = { spinning: false, hold: false };
         this._sounds = {
             hold: new Audio("./assets/snd/hold.wav"),
             reelStarting: new Audio("./assets/snd/spin.wav"),
@@ -93,12 +93,14 @@ class PlayField {
         return this._promisesList;
     }
 
-    set pushPromise(promise) {//push promise to promisesList
+    set pushPromise(promise) {
+        //push promise to promisesList
         this._promisesList.push(promise);
     }
 
-    set promise(promise){//Set promise to Promise.all
-        this._promise = promise
+    set promise(promise) {
+        //Set promise to Promise.all
+        this._promise = promise;
     }
 
     //METHODS
@@ -238,6 +240,7 @@ class PlayField {
 
     #activateHold = () => {
         this._sounds.getsHold.play(); //play sound for hold
+        this.parent.overlay.hold(); //display hold overlay message
         //method activates hold functionality. Enables buttons and activates visual styles by modyfing classes of elements.
         const buttons = this.holdButtons; //creates variable holding buttons object
         buttons.forEach((button) => {
@@ -308,7 +311,7 @@ class PlayField {
             if (!reel.isOnHold) {
                 //check if reel is not on hold
                 let distance = reel.lnHeight * (Math.floor(Math.random() * 10) + 20); //randomise reel animation distance
-                let duration = 2500 + reel.index * 500; //calculate duration as time in ms + (reel index * 500 ms) to give delay to reels
+                let duration = 2500 + reel.index * 500; //calculate duration as time in ms + (reel index * 500 ms) to give incremental delay to reels based on order
                 let easingFunction = easeOutQuad; //callback easing function for animation
                 this.pushPromise = new Promise((resolve, reject) => {
                     //create new promise which calls reel animation method
@@ -316,73 +319,90 @@ class PlayField {
                 });
             }
         });
-        this.promise = Promise.all(this.promisesList).then((values) => {//run if all reels finished spinning
-            setTimeout(this.#processResults, 150, false);//add little delay to finish playing sound before processing results
-            this.#clearHold();//clear hold flags
-            if(this.parent.debug){log(values)}//debug log
+        this.promise = Promise.all(this.promisesList).then((values) => {
+            //run if all reels finished spinning
+            setTimeout(this.#processResults, 150, false); //add little delay to finish playing sound before processing results
+            this.#clearHold(); //clear hold flags
+            if (this.parent.debug) {
+                log(values);
+            } //debug log
         });
     };
 
     #processResults = (simulate = false) => {
+        this.isSpinning = false; //mark flag to re-enable spin button functionality
         let results; //create variabe to hold results
         if (simulate) results = Array(3).fill(this.parent.generateFruit());
         //if simulate : true generate random winning result
         else {
-            //iterate reels and return fruit based on current scrollTop position / reel line height + offset (3rd fruit in visible reel)
-            results = this.reels.map((reel) => {
-                return reel.fruitsList[reel.scrollTop / reel.lnHeight + 2];
-            });
+            results = this.#getResults();
         }
         if (this.parent.debug) log(results);
-        if (
-            //if random number is within accepted range and you are not having a winning result you will get hold
-            Math.floor(Math.random() * (100 / game.holdChance) + 1) == 1 && //check if you got hold
-            !results.every(function (val, i, arr) {
-                //check if all elements of array are NOT the same (not winning)
-                return val === arr[0];
-            })
-        ) {
+        let win = this.#checkWin(results); //check if winning
+        if (win) {
+            this.#handleWin(results); //run method to handle win
+            return;
+        } //else generate and check hold chance
+        if (this.#generateHoldChance()) {
             this.#activateHold(); //run method to handle hold
-            this.parent.overlay.msg = `<span style='color:red'>HOLD!!!</span>\n<span style='color:yellow'>Select reels to hold</span>`;
-            this.parent.overlay.showMsg(this.options.timeouts.overlay.hold); //display message in screen overlay
-        } else if (
-            results.every(function (val, i, arr) {
-                //otherwise check if all elements of array are the same (winning)
-                return val === arr[0];
-            })
-        ) {
-            this.parent.fruits.forEach((fruit) => {
-                //iterate throug all kinds of fruits we have
-                if (results.includes(fruit)) {
-                    //to find matching fruit
-                    let prize = this.parent.getPrize(fruit); //get prize generaed for that fruit from parent object
-                    this._sounds.win.play(); //play wining sound
-                    if (this.parent.debug)
-                        //debug msg
-                        log(
-                            `%cYou win :o) %c£${prize}}`,
-                            "color:green,font-weight:bold",
-                            "color:yellow,background-color:brown"
-                        );
-                    this.parent.resultsField.wins = [prize, fruit]; //add history to results sidebar
-                    this.parent.overlay.msg = `3 x ${fruit}${fruit}${fruit}\n<span style='color:green'>WIN!!!</span>\n<span style='color:yellow'>$${prize}</span>`;
-                    this.parent.overlay.showMsg(this.options.timeouts.overlay.win); //show overlay message informing about winning
-                }
-            });
-        } else {
-            this.parent.resultsField.loses = 1; //otherwise if no luck increment loses and update result sidebar
-            if (this.parent.resultsField.cash <= 0) {
-                //if out of money...
-                this._sounds.gameOver.play(); //play game over sound
-                this.parent.rulesField.clearRules(); //clear content of rules sidebar
-                this.parent.overlay.gameOver(); //display overlay infomring about game over
-            } else {
-                //otherwise...
-                this.parent.overlay.msg = "No win this TIME!!!";
-                this._sounds.loses.playRandom(); //play random loosing sound
-                this.parent.overlay.showMsg(this.options.timeouts.overlay.lose); //show overlay message
-            }
+            return;
         }
-        this.isSpinning = false; //mark flag to re-enable spin button functionality
+        this.#handleLoose(); //otherwise run method to handle loose
+    };
+
+    #generateHoldChance = () => {
+        return Math.floor(Math.random() * (100 / game.holdChance) + 1) == 1
+            ? true
+            : false;
+    };
+
+    #handleLoose = () => {
+        this.parent.resultsField.loses = 1; //otherwise if no luck increment loses and update result sidebar
+        if (this.parent.resultsField.cash <= 0) {
+            //if out of money...
+            this._sounds.gameOver.play(); //play game over sound
+            this.parent.rulesField.clearRules(); //clear content of rules sidebar
+            this.parent.overlay.gameOver(); //display overlay infomring about game over
+        } else {
+            //otherwise...
+            this.parent.overlay.msg = "No win this TIME!!!";
+            this._sounds.loses.playRandom(); //play random loosing sound
+            this.parent.overlay.showMsg(this.options.timeouts.overlay.lose); //show overlay message
+        }
+    };
+
+    #handleWin = (results) => {
+        this.parent.fruits.forEach((fruit) => {
+            //iterate throug all kinds of fruits we have
+            if (results.includes(fruit)) {
+                //to find matching fruit
+                let prize = this.parent.getPrize(fruit); //get prize generaed for that fruit from parent object
+                this._sounds.win.play(); //play wining sound
+                if (this.parent.debug)
+                    //debug msg
+                    log(
+                        `%cYou win :o) %c£${prize}}`,
+                        "color:green,font-weight:bold",
+                        "color:yellow,background-color:brown"
+                    );
+                this.parent.resultsField.wins = [prize, fruit]; //add history to results sidebar
+                this.parent.overlay.msg = `3 x ${fruit}${fruit}${fruit}\n<span style='color:green'>WIN!!!</span>\n<span style='color:yellow'>$${prize}</span>`;
+                this.parent.overlay.showMsg(this.options.timeouts.overlay.win); //show overlay message informing about winning
+            }
+        });
+    };
+
+    #getResults = () => {
+        //iterate reels and return fruit based on current scrollTop position / reel line height + offset (3rd fruit in visible reel)
+        return this.reels.map((reel) => {
+            return reel.fruitsList[reel.scrollTop / reel.lnHeight + 2];
+        });
+    };
+
+    #checkWin = (results) => {
+        return results.every(function (val, i, arr) {
+            //otherwise check if all elements of array are the same (winning)
+            return val === arr[0];
+        });
     };
 }
