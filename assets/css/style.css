@@ -210,8 +210,8 @@ body {
   margin: 1.9vh 0vw 0vh 0vw;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr 62.1vh 1fr 1fr 1fr;
-  grid-row-gap: 3.5%;
-  grid-column-gap: 4.3%;
+  grid-row-gap: 3.2vh;
+  grid-column-gap: 0vw;
   grid-template-areas:
     "options options options"
     "reel1 reel2 reel3"

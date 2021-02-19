@@ -124,8 +124,4 @@ class SlotMachine {
     startGame() {
         this.overlay.startGame()
     }
-
-    simulateWin() {
-        this.playField.processResults(true)
-    }
 }
