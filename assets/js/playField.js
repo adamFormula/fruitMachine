@@ -8,6 +8,7 @@ class PlayField {
         this.parent = parent;
         this.options = options;
         this._hldButtons = Array.from(getEl(".btnHold"));
+        this._spinButton = document.querySelector("#spinBtn>button");
         this._reels = Array.from(getEl(".reel"));
         this._flags = { spinning: false, hold: false, lastReel: 0 };
         this._sounds = {
@@ -37,6 +38,7 @@ class PlayField {
         this.#initEventListeners();
         this.#addPropertiesToReels();
         this.#addMethodToLoseSound();
+        this.#addPropertiesToButtons();
     }
     //PROPERTIES
     get isSpinning() {
@@ -47,11 +49,15 @@ class PlayField {
     set isSpinning(value) {
         //sets isSpinning flag
         this._flags.spinning = value;
+        this.spinButton.isEnabled = !value;
     }
 
     set isHoldEnabled(bool) {
         //sets hold flag
         this._flags.hold = bool;
+        this.holdButtons.forEach((holdButton) => {
+            holdButton.disabled = !bool;
+        });
     }
 
     get isHoldEnabled() {
@@ -70,6 +76,17 @@ class PlayField {
         //returns reels obj
         return this._reels;
     }
+
+    get holdButtons() {
+        //returns hldButtons obj
+        return this._hldButtons;
+    }
+
+    get spinButton() {
+        //returns spinButton obj
+        return this._spinButton;
+    }
+
     //METHODS
     #initEventListeners() {
         //initialise custom events listener
@@ -94,6 +111,47 @@ class PlayField {
                 detail: obj,
             })
         );
+    };
+
+    #addPropertiesToButtons = () => {
+        this.holdButtons.forEach((holdButton) => {
+            holdButton._isSelected = false;
+            holdButton._sounds = { toggle: this._sounds.hold }; //hold button toggle sound}
+            holdButton._isEnabled = false;
+            Object.defineProperty(holdButton, "isSelected", {
+                get: () => {
+                    return holdButton._isSelected;
+                },
+                set: (value) => {
+                    holdButton._isSelected = value;
+                    holdButton._sounds.toggle.play(); //playing hold button toggle sound
+                    holdButton.classList.toggle("holdSelected", value); //toggle class on button
+                    holdButton.classList.toggle("holdActive", !value); //toggle class on button
+                    this.reels[holdButton.dataset.reelNumber].isOnHold = value; //flaging reel coresponding to pressed button isOnHold property
+                },
+            });
+            Object.defineProperty(holdButton, "isEnabled", {
+                get: () => {
+                    return holdButton._isEnabled;
+                },
+                set: (value) => {
+                    holdButton._isEnabled = value;
+                    holdButton.disabled = !value;
+                    holdButton.classList.toggle("holdActive", value); //toggle class on button
+                    holdButton.classList.toggle("holdNormal", !value); //toggle class on button
+                },
+            });
+        });
+        this.spinButton._isEnabled = true;
+        Object.defineProperty(this.spinButton, "isEnabled", {
+            get: () => {
+                return this.spinButton._isEnabled;
+            },
+            set: (value) => {
+                this.spinButton._isEnabled = value; //set button property
+                this.spinButton.disabled = !value;
+            },
+        });
     };
 
     #addPropertiesToReels = () => {
@@ -218,46 +276,31 @@ class PlayField {
     #activateHold = () => {
         this._sounds.getsHold.play(); //play sound for hold
         //method activates hold functionality. Enables buttons and activates visual styles by modyfing classes of elements.
-        const buttons = this._hldButtons; //creates variable holding buttons object
+        const buttons = this.holdButtons; //creates variable holding buttons object
         buttons.forEach((button) => {
             //iterates buttons
-            button.classList.add("holdActive"); //activates button by adding class
-            button.classList.remove("holdNormal"); //removes default class
+            button.isEnabled = true; //enabling button
+            button.isSelected = false; //setting isSelected button property to false
         });
         this.isHoldEnabled = true; //isHoldEnabled flag is set to inform about state
     };
 
     toogleHoldBtnClick = (button) => {
-        let index = parseInt(button.getAttribute("data-reel-number")); // get reel/button index from button data attribute
         //fired by pressing hold button
         if (this.isHoldEnabled) {
             //verifying if hold is active
-            this._sounds.hold.play(); //playing hold button toggle sound
-            if (button.classList.contains("holdActive")) {
-                //checking if buttons elements have class holdActive
-                this.reels[index].isOnHold = true; //flaging reel coresponding to pressed button isOnHold property
-                button.classList.add("holdSelected"); //adding class to button
-                button.classList.remove("holdActive"); //removing class from button
-            } else {
-                this.reels[index].isOnHold = false; //checking reel isOnHold flag state
-                button.classList.remove("holdSelected"); //removing class from button
-                button.classList.add("holdActive"); //adding class to button
-            }
+            button.isSelected = !button.isSelected; // toggle button state
         }
     };
 
     #clearHold = () => {
         //removing hold flag and modyfying hold buttons classes, trigering buttons animation
-        const buttons = this._hldButtons;
+        const buttons = this.holdButtons;
         //assigning buttons object to variqable
         buttons.forEach((button) => {
             //iterating buttons
-            button.classList.remove("holdActive", "holdSelected"); //removing classes from buttons
-            button.classList.add("holdNormal"); //adding class to buttons
-        });
-        this.reels.forEach((reel) => {
-            //iterating reels
-            reel.isOnHold = false; //setting each reel isOnHold flag to false
+            button.isSelected = false; //removing classes from buttons
+            button.isEnabled = false; // disabling button
         });
         this.isHoldEnabled = false; //flag isHoldEnabled = false
     };
