@@ -378,7 +378,7 @@ class PlayField {
                 let prize = this.parent.getPrize(fruit); //get prize generaed for that fruit from parent object
                 this._sounds.win.play(); //play wining sound
                 this.parent.resultsField.wins = [prize, fruit]; //add history to results sidebar
-                this.parent.every.win(fruit);
+                this.parent.overlay.win(fruit);
             }
         });
     };

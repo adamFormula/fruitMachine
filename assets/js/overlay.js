@@ -32,7 +32,7 @@ class Overlay {
         overlay.classList.remove("show");
     };
 
-    lose = () => {
+    loose = () => {
         this.msg = "No win this TIME!!!";
         this.showMsg(this.options.timeouts.overlay.lose); //show overlay message
     };
@@ -49,13 +49,13 @@ class Overlay {
 
     gameOver = () => {
         this.msg = `GAME OVER!!!
-                <button class="start comicFont" onclick="game.playField.spin = true;game.overlay.hideMsg(); game.playField._sounds.start.play();game.playField.resetReels();game.rulesField.makeRules();game.resultsField.reset()">START AGAIN</button>`;
+                <button class="start comicFont" onclick="game.overlay.hideMsg(); game.playField._sounds.start.play();game.playField.resetReels();game.rulesField.makeRules();game.resultsField.reset()">START AGAIN</button>`;
         this.showMsg(-1);
     };
     startGame = () => {
         this.msg = `Welcome to <span style='color: blue'>F</span><span style='color: red'>R</span><span style='color: yellow'>U</span><span style='color: blue'>I</span><span style='color: green'>T</span> <span style='color: red'>M</span><span style='color: blue'>A</span><span style='color: red'>C</span><span style='color: yellow'>H</span><span style='color: blue'>I</span><span style='color: green'>N</span>E!
         Press start to begin
-        <button class="start comicFont" onclick="game.playField.spin = true;game.overlay.hideMsg(); game.playField._sounds.start.play();game.playField.resetReels();game.rulesField.makeRules()">START</button>`;
+        <button class="start comicFont" onclick="game.overlay.hideMsg(); game.playField._sounds.start.play();game.playField.resetReels();game.rulesField.makeRules()">START</button>`;
         this.showMsg(-1);
     };
 }
