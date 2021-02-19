@@ -5,40 +5,40 @@
 
 class PlayField {
     constructor(parent, options) {
-            this.parent = parent;
-            this.options = options;
-            this._hldButtons = Array.from(getEl(".btnHold"));
-            this._reels = Array.from(getEl(".reel"));
-            this._flags = { spinning: false, hold: false, lastReel: 0 };
-            this._sounds = {
-                hold: new Audio("./assets/snd/hold.wav"),
-                reelStarting: new Audio("./assets/snd/spin.wav"),
-                reelStopping: new Audio("./assets/snd/reelStop.wav"),
-                reelSpinning: new Audio("./assets/snd/reelSpins.wav"),
-                win: new Audio("./assets/snd/win.wav"),
-                loseTracks: [
-                    "./assets/snd/loses1.wav",
-                    "./assets/snd/loses2.wav",
-                    "./assets/snd/loses3.wav",
-                    "./assets/snd/loses4.wav",
-                    "./assets/snd/loses5.wav",
-                    "./assets/snd/loses6.wav",
-                    "./assets/snd/loses7.wav",
-                    "./assets/snd/loses8.wav",
-                    "./assets/snd/loses9.wav",
-                    "./assets/snd/loses10.wav",
-                    "./assets/snd/loses11.wav",
-                ],
-                loses: new Audio(),
-                getsHold: new Audio("./assets/snd/getsHold.wav"),
-                start: new Audio("./assets/snd/gameStart.wav"),
-                gameOver: new Audio("./assets/snd/gameOver.wav"),
-            };
-            this.initEventListeners();
-            this.addPropertiesToReels();
-            this.addMethodToLoseSound();
-        }
-        //PROPERTIES
+        this.parent = parent;
+        this.options = options;
+        this._hldButtons = Array.from(getEl(".btnHold"));
+        this._reels = Array.from(getEl(".reel"));
+        this._flags = { spinning: false, hold: false, lastReel: 0 };
+        this._sounds = {
+            hold: new Audio("./assets/snd/hold.wav"),
+            reelStarting: new Audio("./assets/snd/spin.wav"),
+            reelStopping: new Audio("./assets/snd/reelStop.wav"),
+            reelSpinning: new Audio("./assets/snd/reelSpins.wav"),
+            win: new Audio("./assets/snd/win.wav"),
+            loseTracks: [
+                "./assets/snd/loses1.wav",
+                "./assets/snd/loses2.wav",
+                "./assets/snd/loses3.wav",
+                "./assets/snd/loses4.wav",
+                "./assets/snd/loses5.wav",
+                "./assets/snd/loses6.wav",
+                "./assets/snd/loses7.wav",
+                "./assets/snd/loses8.wav",
+                "./assets/snd/loses9.wav",
+                "./assets/snd/loses10.wav",
+                "./assets/snd/loses11.wav",
+            ],
+            loses: new Audio(),
+            getsHold: new Audio("./assets/snd/getsHold.wav"),
+            start: new Audio("./assets/snd/gameStart.wav"),
+            gameOver: new Audio("./assets/snd/gameOver.wav"),
+        };
+        this.#initEventListeners();
+        this.#addPropertiesToReels();
+        this.#addMethodToLoseSound();
+    }
+    //PROPERTIES
     get isSpinning() {
         //returns isSpinning flag
         return this._flags.spinning;
@@ -67,11 +67,11 @@ class PlayField {
     }
 
     get reels() {
-            //returns reels obj
-            return this._reels;
-        }
-        //METHODS
-    initEventListeners() {
+        //returns reels obj
+        return this._reels;
+    }
+    //METHODS
+    #initEventListeners() {
         //initialise custom events listener
         document.addEventListener(
             //adds event listener for events coming from reels animation
@@ -79,14 +79,14 @@ class PlayField {
             (event) => {
                 // (1)
                 if (event.detail.status == "completed") {
-                    this.clearHold();
-                    this.processResults(false);
+                    this.#clearHold();
+                    this.#processResults(false);
                 }
             }
         );
     }
 
-    sendEvent = (elem, type, obj) => {
+    #sendEvent = (elem, type, obj) => {
         //dispatches events from elements
         elem.dispatchEvent(
             new CustomEvent(type, {
@@ -96,16 +96,16 @@ class PlayField {
         );
     };
 
-    addPropertiesToReels = () => {
+    #addPropertiesToReels = () => {
         //extends reels object with additional properties
         this.reels.forEach((reel, index) => {
             //iterating reels
             reel.lnHeight = parseInt(
                 //adding property of line height to object
                 window
-                .getComputedStyle(this.reels[index])
-                .getPropertyValue("line-height")
-                .replace("px", "")
+                    .getComputedStyle(this.reels[index])
+                    .getPropertyValue("line-height")
+                    .replace("px", "")
             );
             reel.index = index;
             reel.sounds = {
@@ -122,19 +122,19 @@ class PlayField {
             }; //adding events callbacks
             reel.events = {
                 idle: () => {
-                    this.sendEvent(this.reels[index], "reel", {
+                    this.#sendEvent(this.reels[index], "reel", {
                         index: index,
                         status: "idle",
                     });
                 },
                 scrolling: () => {
-                    this.sendEvent(this.reels[index], "reel", {
+                    this.#sendEvent(this.reels[index], "reel", {
                         index: index,
                         status: "scrolling",
                     });
                 },
                 spinFinished: () => {
-                    this.sendEvent(this.reels[index], "reel", {
+                    this.#sendEvent(this.reels[index], "reel", {
                         index: index,
                         status: "completed",
                     });
@@ -165,7 +165,7 @@ class PlayField {
         });
     };
 
-    addMethodToLoseSound = () => {
+    #addMethodToLoseSound = () => {
         this._sounds.loses.playRandom = () => {
             this._sounds.loses.src = this._sounds.loseTracks[ //play choose random loosing sound from array
                 genRandomNumber(this._sounds.loseTracks.length - 1)
@@ -175,7 +175,7 @@ class PlayField {
         };
     };
 
-    scrollReel = (to, duration, easingFn, reel) => {
+    #scrollReel = (to, duration, easingFn, reel) => {
         //reel scroll animation with easing function
         let start = reel.scrollTop, //init variables
             change = to - start,
@@ -215,7 +215,7 @@ class PlayField {
         animateScroll(); //init animation iteration
     };
 
-    activateHold = () => {
+    #activateHold = () => {
         this._sounds.getsHold.play(); //play sound for hold
         //method activates hold functionality. Enables buttons and activates visual styles by modyfing classes of elements.
         const buttons = this._hldButtons; //creates variable holding buttons object
@@ -227,7 +227,7 @@ class PlayField {
         this.isHoldEnabled = true; //isHoldEnabled flag is set to inform about state
     };
 
-    toogleHoldBtn = (button) => {
+    toogleHoldBtnClick = (button) => {
         let index = parseInt(button.getAttribute("data-reel-number")); // get reel/button index from button data attribute
         //fired by pressing hold button
         if (this.isHoldEnabled) {
@@ -246,7 +246,7 @@ class PlayField {
         }
     };
 
-    clearHold = () => {
+    #clearHold = () => {
         //removing hold flag and modyfying hold buttons classes, trigering buttons animation
         const buttons = this._hldButtons;
         //assigning buttons object to variqable
@@ -271,7 +271,7 @@ class PlayField {
             this.resetReels(); //re-generate reels, reset topScroll for each reel to 0
             this.parent.resultsField.spins++; //increment by 1 number of spins, update results sidebar with new value
             this.parent.resultsField.inOut = -1; //chagne balance of cash, display animation and update results sidebar
-            this.spinReels(); //call method to spin reels
+            this.#spinReels(); //call method to spin reels
         }
     };
 
@@ -295,7 +295,7 @@ class PlayField {
         }
     };
 
-    spinReels = () => {
+    #spinReels = () => {
         this.reels.forEach((reel) => {
             //iterate reels object
             if (!reel.isOnHold) {
@@ -304,12 +304,12 @@ class PlayField {
                 let distance = reel.lnHeight * (Math.floor(Math.random() * 10) + 20); //randomise reel animation distance
                 let duration = 2500 + reel.index * 500; //calculate duration as time in ms + (reel index * 500 ms) to give delay to reels
                 let easingFunction = easeOutQuad; //callback easing function for animation
-                this.scrollReel(distance, duration, easingFunction, reel); //call reel animation method
+                this.#scrollReel(distance, duration, easingFunction, reel); //call reel animation method
             }
         });
     };
 
-    processResults = (simulate = false) => {
+    #processResults = (simulate = false) => {
         let results; //create variabe to hold results
         if (simulate) results = Array(3).fill(this.parent.generateFruit());
         //if simulate : true generate random winning result
@@ -323,16 +323,16 @@ class PlayField {
         if (
             //if random number is within accepted range and you are not having a winning result you will get hold
             Math.floor(Math.random() * (100 / game.holdChance) + 1) == 1 && //check if you got hold
-            !results.every(function(val, i, arr) {
+            !results.every(function (val, i, arr) {
                 //check if all elements of array are NOT the same (not winning)
                 return val === arr[0];
             })
         ) {
-            this.activateHold(); //run method to handle hold
+            this.#activateHold(); //run method to handle hold
             this.parent.overlay.msg = `<span style='color:red'>HOLD!!!</span>\n<span style='color:yellow'>Select reels to hold</span>`;
             this.parent.overlay.showMsg(this.options.timeouts.overlay.hold); //display message in screen overlay
         } else if (
-            results.every(function(val, i, arr) {
+            results.every(function (val, i, arr) {
                 //otherwise check if all elements of array are the same (winning)
                 return val === arr[0];
             })
@@ -344,12 +344,12 @@ class PlayField {
                     let prize = this.parent.getPrize(fruit); //get prize generaed for that fruit from parent object
                     this._sounds.win.play(); //play wining sound
                     if (this.parent.debug)
-                    //debug msg
+                        //debug msg
                         log(
-                        `%cYou win :o) %c£${prize}}`,
-                        "color:green,font-weight:bold",
-                        "color:yellow,background-color:brown"
-                    );
+                            `%cYou win :o) %c£${prize}}`,
+                            "color:green,font-weight:bold",
+                            "color:yellow,background-color:brown"
+                        );
                     this.parent.resultsField.wins = [prize, fruit]; //add history to results sidebar
                     this.parent.overlay.msg = `3 x ${fruit}${fruit}${fruit}\n<span style='color:green'>WIN!!!</span>\n<span style='color:yellow'>$${prize}</span>`;
                     this.parent.overlay.showMsg(this.options.timeouts.overlay.win); //show overlay message informing about winning
