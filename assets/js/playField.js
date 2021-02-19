@@ -310,7 +310,7 @@ class PlayField {
     };
 
     #spinReels = () => {
-        this.#clearPromises; //remove old promises
+        this.#clearPromises(); //remove old promises
         this.reels.forEach((reel) => {
             //iterate reels object
             if (!reel.isOnHold) {
