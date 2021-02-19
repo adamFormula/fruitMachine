@@ -32,9 +32,19 @@ class Overlay {
         overlay.classList.remove("show");
     };
 
+    lose = () => {
+        this.msg = "No win this TIME!!!";
+        this.showMsg(this.options.timeouts.overlay.lose); //show overlay message
+    };
+
     hold = () => {
         this.msg = `<span style='color:red'>HOLD!!!</span>\n<span style='color:yellow'>Select reels to hold</span>`;
         this.showMsg(this.options.timeouts.overlay.hold); //display message in screen overlay
+    };
+
+    win = (fruit) => {
+        this.msg = `3 x ${fruit}${fruit}${fruit}\n<span style='color:green'>WIN!!!</span>\n<span style='color:yellow'>$${prize}</span>`;
+        this.showMsg(this.options.timeouts.overlay.win); //show overlay message informing about winning
     };
 
     gameOver = () => {

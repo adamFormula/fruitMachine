@@ -33,7 +33,7 @@ game.startGame()
 //DONE buttons object extended with properties: isActive, isSelected etc...
 //DONE Add events and drive logic with events where appropariate
 //DONE Replace events with Promise
-//TODO in playField.js processResults needs to be split and refactored. Some parts belong to overlay
+//DONE in playField.js processResults needs to be split and refactored. Some parts belong to overlay
 //TODO Create sound object, control sounds, playing, non-blocking - blocking playing, sounds queue
 //TODO Create console object to handle playing game in console
 //TODO Add debuging in console

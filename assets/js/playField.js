@@ -365,9 +365,8 @@ class PlayField {
             this.parent.overlay.gameOver(); //display overlay infomring about game over
         } else {
             //otherwise...
-            this.parent.overlay.msg = "No win this TIME!!!";
             this._sounds.loses.playRandom(); //play random loosing sound
-            this.parent.overlay.showMsg(this.options.timeouts.overlay.lose); //show overlay message
+            this.parent.overlay.loose()// show loose overlay message
         }
     };
 
@@ -378,16 +377,8 @@ class PlayField {
                 //to find matching fruit
                 let prize = this.parent.getPrize(fruit); //get prize generaed for that fruit from parent object
                 this._sounds.win.play(); //play wining sound
-                if (this.parent.debug)
-                    //debug msg
-                    log(
-                        `%cYou win :o) %c£${prize}}`,
-                        "color:green,font-weight:bold",
-                        "color:yellow,background-color:brown"
-                    );
                 this.parent.resultsField.wins = [prize, fruit]; //add history to results sidebar
-                this.parent.overlay.msg = `3 x ${fruit}${fruit}${fruit}\n<span style='color:green'>WIN!!!</span>\n<span style='color:yellow'>$${prize}</span>`;
-                this.parent.overlay.showMsg(this.options.timeouts.overlay.win); //show overlay message informing about winning
+                this.parent.every.win(fruit);
             }
         });
     };
