@@ -10,7 +10,7 @@ class PlayField {
         this._hldButtons = Array.from(getEl(".btnHold"));
         this._spinButton = document.querySelector("#spinBtn>button");
         this._reels = Array.from(getEl(".reel"));
-        this._flags = { spinning: false, hold: false, lastReel: 0 };
+        this._flags = { spinning: false, hold: false};
         this._sounds = {
             hold: new Audio("./assets/snd/hold.wav"),
             reelStarting: new Audio("./assets/snd/spin.wav"),
@@ -168,11 +168,6 @@ class PlayField {
                 },
             }; //adding events callbacks
             reel._isOnHold = false;
-            Object.defineProperty(reel, "isLast", {
-                get: () => {
-                    return this._flags.lastReel == reel.index ? true : false;
-                },
-            });
             Object.defineProperty(reel, "isOnHold", {
                 get: () => {
                     return reel._isOnHold;
@@ -218,7 +213,7 @@ class PlayField {
             // move scrollTop of reel by result of easing function
             reel.scrollTop = easingFn(currentTime, start, change, duration);
             displacement -= reel.scrollTop; //check how much movment happened since last animation iteration
-            if (Math.abs(displacement) > 10 && reel.isLast) {
+            if (Math.abs(displacement) > 10) {
                 //if displacement > 10 play spinnning reel sound
                 reel.sounds.spinning();
             }
@@ -231,7 +226,7 @@ class PlayField {
                 reel.sounds.stopping(); //play reel stoping sound
                 //
                 if (this.parent.debug)
-                    log(currentTime, duration, reel.scrollTop, reel.isLast, reel.index);
+                    log(currentTime, duration, reel.scrollTop, reel.index);
             }
         };
         animateScroll(); //init animation iteration
@@ -308,7 +303,6 @@ class PlayField {
             //iterate reels object
             if (!reel.isOnHold) {
                 //check if reel is not on hold
-                this._flags.lastReel = reel.index; //mark reel as last
                 let distance = reel.lnHeight * (Math.floor(Math.random() * 10) + 20); //randomise reel animation distance
                 let duration = 2500 + reel.index * 500; //calculate duration as time in ms + (reel index * 500 ms) to give delay to reels
                 let easingFunction = easeOutQuad; //callback easing function for animation
