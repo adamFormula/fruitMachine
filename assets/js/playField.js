@@ -35,7 +35,8 @@ class PlayField {
             start: new Audio("./assets/snd/gameStart.wav"),
             gameOver: new Audio("./assets/snd/gameOver.wav"),
         };
-        this.#initEventListeners();
+        this._promisesList = [];
+        this._promise = null;
         this.#addPropertiesToReels();
         this.#addMethodToLoseSound();
         this.#addPropertiesToButtons();
@@ -87,30 +88,18 @@ class PlayField {
         return this._spinButton;
     }
 
-    //METHODS
-    #initEventListeners() {
-        //initialise custom events listener
-        document.addEventListener(
-            //adds event listener for events coming from reels animation
-            "reel",
-            (event) => {
-                // (1)
-                if (event.detail.status == "completed") {
-                    this.#clearHold();
-                    this.#processResults(false);
-                }
-            }
-        );
+    get promisesList() {
+        //returns promisesList obj
+        return this._promisesList;
     }
 
-    #sendEvent = (elem, type, obj) => {
-        //dispatches events from elements
-        elem.dispatchEvent(
-            new CustomEvent(type, {
-                bubbles: true,
-                detail: obj,
-            })
-        );
+    set pushPromise(promise) {//push promise to promisesList
+        this._promisesList.push(promise);
+    }
+
+    //METHODS
+    #clearPromises = () => {
+        this._promisesList = [];
     };
 
     #addPropertiesToButtons = () => {
@@ -178,26 +167,6 @@ class PlayField {
                     this._sounds.reelStarting.play();
                 },
             }; //adding events callbacks
-            reel.events = {
-                idle: () => {
-                    this.#sendEvent(this.reels[index], "reel", {
-                        index: index,
-                        status: "idle",
-                    });
-                },
-                scrolling: () => {
-                    this.#sendEvent(this.reels[index], "reel", {
-                        index: index,
-                        status: "scrolling",
-                    });
-                },
-                spinFinished: () => {
-                    this.#sendEvent(this.reels[index], "reel", {
-                        index: index,
-                        status: "completed",
-                    });
-                },
-            };
             reel._isOnHold = false;
             Object.defineProperty(reel, "isLast", {
                 get: () => {
@@ -233,7 +202,7 @@ class PlayField {
         };
     };
 
-    #scrollReel = (to, duration, easingFn, reel) => {
+    #scrollReel = (to, duration, easingFn, reel, resolve) => {
         //reel scroll animation with easing function
         let start = reel.scrollTop, //init variables
             change = to - start,
@@ -257,17 +226,12 @@ class PlayField {
             if (currentTime < duration) {
                 window.requestAnimationFrame(animateScroll);
             } else {
+                // the animation is done so lets resolve
+                resolve(`Reel ${reel.index} completed spin.`);
                 reel.sounds.stopping(); //play reel stoping sound
-                if (
-                    reel.events.spinFinished &&
-                    typeof reel.events.spinFinished === "function" &&
-                    reel.isLast //checking if reel is last reel to spin
-                ) {
-                    // the animation is done so lets callback
-                    setTimeout(reel.events.spinFinished, 100); //little delay before calling event to let sounds finish before
-                    if (this.parent.debug)
-                        log(currentTime, duration, reel.scrollTop, reel.isLast, reel.index);
-                }
+                //
+                if (this.parent.debug)
+                    log(currentTime, duration, reel.scrollTop, reel.isLast, reel.index);
             }
         };
         animateScroll(); //init animation iteration
@@ -339,6 +303,7 @@ class PlayField {
     };
 
     #spinReels = () => {
+        this.#clearPromises; //remove old promises
         this.reels.forEach((reel) => {
             //iterate reels object
             if (!reel.isOnHold) {
@@ -347,8 +312,16 @@ class PlayField {
                 let distance = reel.lnHeight * (Math.floor(Math.random() * 10) + 20); //randomise reel animation distance
                 let duration = 2500 + reel.index * 500; //calculate duration as time in ms + (reel index * 500 ms) to give delay to reels
                 let easingFunction = easeOutQuad; //callback easing function for animation
-                this.#scrollReel(distance, duration, easingFunction, reel); //call reel animation method
+                this.pushPromise = new Promise((resolve, reject) => {
+                    //create new promise which calls reel animation method
+                    this.#scrollReel(distance, duration, easingFunction, reel, resolve); //call reel animation method)
+                });
             }
+        });
+        this.pushPromise = Promise.all(this.promisesList).then((values) => {//run if all reels finished spinning
+            setTimeout(this.#processResults, 150, false);//add little delay to finish playing sound before processing results
+            this.#clearHold();//clear hold flags
+            if(this.parent.debug){log(values)}//debug log
         });
     };
 
