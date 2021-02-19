@@ -1,5 +1,5 @@
 "use strict";
-const debug = false
+const debug = true
 
 const { log, warn, error } = console;
 
