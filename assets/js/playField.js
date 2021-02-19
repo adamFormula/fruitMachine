@@ -285,25 +285,23 @@ class PlayField {
     };
 
     resetReels = () => {
-        let reelsTotHeight = 0; //variable to keep sum of reels heights
-        this.reels[0].innerHTML = this.parent //call parent method to generate and shuffle 3 times reel, before returning as string
-        .shuffle3Times(this.parent.generateReel())
-        .join("");
-        let temp = this.reels[0].scrollHeight
-        this.reels[0].innerHTML =''
-        while (reelsTotHeight != temp * (3 - this.sizeReelsOnHold)) {
-            //keep randmosing reels untill total sum of their heights is equal to 3 * 500 * 106 (number of reels * number of slots * line height)
-            reelsTotHeight = 0; // zero value of height at each iteration
+        let reelsFruitsSize = 0; //variable to keep sum of reels lengths
+        let activeReels = 1
+        while (reelsFruitsSize != activeReels * (this.parent.reelSize)) {
+            //keep randmosing reels untill total sum of their lenghts is equal to 3 * slots number
+            reelsFruitsSize = 0; // zero value of height at each iteration
+            activeReels = 0
             this.reels.forEach((reel) => {
                 //iterate reels object
                 if (!reel.isOnHold) {
+                    activeReels++
                     //if reel is not on hold
                     reel.fruitsList = this.parent //call parent method to generate and shuffle 3 times reel, before returning as string
                         .shuffle3Times(this.parent.generateReel())
                         .join("");
                     reel.scrollTop = 0; //reset reel scrollTop position to 0
-                    if (this.parent.debug) log(reel.scrollHeight); //show debug msg
-                    reelsTotHeight += reel.scrollHeight; //increment total reels height by reel height
+                    if (this.parent.debug) log(reel.scrollHeight, reel.lnHeight); //show debug msg
+                    reelsFruitsSize += reel.fruitsList.length; //increment total reels height by reel height
                 }
             });
         }
@@ -383,7 +381,7 @@ class PlayField {
                 let prize = this.parent.getPrize(fruit); //get prize generaed for that fruit from parent object
                 this._sounds.win.play(); //play wining sound
                 this.parent.resultsField.wins = [prize, fruit]; //add history to results sidebar
-                this.parent.overlay.win(fruit);
+                this.parent.overlay.win(fruit,prize);
             }
         });
     };
@@ -391,7 +389,8 @@ class PlayField {
     #getResults = () => {
         //iterate reels and return fruit based on current scrollTop position / reel line height + offset (3rd fruit in visible reel)
         return this.reels.map((reel) => {
-            return reel.fruitsList[reel.scrollTop / reel.lnHeight + 2];
+            log(reel.scrollTop)
+            return reel.fruitsList[roundTOlnHeight(reel.scrollTop,reel.lnHeight) / reel.lnHeight + 2];
         });
     };
 

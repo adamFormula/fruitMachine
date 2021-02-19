@@ -42,7 +42,7 @@ class Overlay {
         this.showMsg(this.options.timeouts.overlay.hold); //display message in screen overlay
     };
 
-    win = (fruit) => {
+    win = (fruit, prize) => {
         this.msg = `3 x ${fruit}${fruit}${fruit}\n<span style='color:green'>WIN!!!</span>\n<span style='color:yellow'>$${prize}</span>`;
         this.showMsg(this.options.timeouts.overlay.win); //show overlay message informing about winning
     };

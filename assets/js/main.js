@@ -20,7 +20,7 @@ const getEl = (selector) => {
     }
 };
 
-const roundHundreds = (num) => Math.round(num / 100) * 100;
+const roundTOlnHeight = (num,lnHeight) => Math.round(num / lnHeight) * lnHeight;
 
 const simulateWin = () => {
     game.simulateWin()
