@@ -97,6 +97,10 @@ class PlayField {
         this._promisesList.push(promise);
     }
 
+    set promise(promise){//Set promise to Promise.all
+        this._promise = promise
+    }
+
     //METHODS
     #clearPromises = () => {
         this._promisesList = [];
@@ -312,7 +316,7 @@ class PlayField {
                 });
             }
         });
-        this.pushPromise = Promise.all(this.promisesList).then((values) => {//run if all reels finished spinning
+        this.promise = Promise.all(this.promisesList).then((values) => {//run if all reels finished spinning
             setTimeout(this.#processResults, 150, false);//add little delay to finish playing sound before processing results
             this.#clearHold();//clear hold flags
             if(this.parent.debug){log(values)}//debug log
