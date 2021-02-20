@@ -181,6 +181,10 @@
   animation-name: fadeOut;
 }
 
+.noselect {
+  user-select: none;
+}
+
 .red {
   color: red;
 }

@@ -20,119 +20,119 @@
 <body>
     <div id="game-container">
         <div id="overlay" class="overlay hide">
-            <div class="popup">No WIN!</div>
+            <div class="popup noselect">No WIN!</div>
         </div>
         <div id="main-grid">
             <div id="resultsField-wrapper">
                 <div id="resultsField-grid" class="comicFont">
-                    <div id="resultsMain" class="grid-sidebar-title">RESULTS: </div>
-                    <div class="grid-sidebar-item">CASH💰:</div>
-                    <div class="grid-sidebar-prefix">$</div>
-                    <div class="grid-sidebar-count">100</div>
-                    <div class="grid-sidebar-affix"></div>
-                    <div class="grid-sidebar-item"></div>
-                    <div class="grid-sidebar-prefix winAmount">+$</div>
-                    <div class="grid-sidebar-count winAmount"></div>
-                    <div class="grid-sidebar-affix"></div>
-                    <div class="grid-sidebar-item">SPINS:</div>
-                    <div class="grid-sidebar-prefix"></div>
-                    <div class="grid-sidebar-count spins">0</div>
-                    <div class="grid-sidebar-affix"></div>
-                    <div class="grid-sidebar-item green">WINS: <span class="wins">0</span></div>
-                    <div class="grid-sidebar-prefix green">$</div>
-                    <div class="grid-sidebar-count totalWins green">0</div>
-                    <div class="grid-sidebar-affix"></div>
-                    <div class="grid-sidebar-item">LAST 3 WINS:</div>
-                    <div class="grid-sidebar-prefix">$</div>
-                    <div class="grid-sidebar-count">0</div>
-                    <div class="grid-sidebar-affix"></div>
-                    <div class="grid-sidebar-item"><span class="fruits"></span></div>
-                    <div class="grid-sidebar-prefix">$</div>
-                    <div class="grid-sidebar-count">0</div>
-                    <div class="grid-sidebar-affix"></div>
-                    <div class="grid-sidebar-item"><span class="fruits"></span></div>
-                    <div class="grid-sidebar-prefix">$</div>
-                    <div class="grid-sidebar-count">0</div>
-                    <div class="grid-sidebar-affix"></div>
-                    <div class="grid-sidebar-item"><span class="fruits"></span></div>
-                    <div class="grid-sidebar-prefix">$</div>
-                    <div class="grid-sidebar-count">0</div>
-                    <div class="grid-sidebar-affix"></div>
-                    <div class="grid-sidebar-item red">LOSES: <span class="loses">0</span></div>
-                    <div class="grid-sidebar-prefix red">$</div>
-                    <div class="grid-sidebar-count totalLoses red">0</div>
-                    <div class="grid-sidebar-affix"></div>
-                    <div class="grid-sidebar-item">W/L RATIO:</div>
-                    <div class="grid-sidebar-prefix"></div>
-                    <div class="grid-sidebar-count wl-ratio">0</div>
-                    <div class="grid-sidebar-affix">%</div>
+                    <div id="resultsMain" class="grid-sidebar-title noselect">RESULTS: </div>
+                    <div class="grid-sidebar-item noselect">CASH💰:</div>
+                    <div class="grid-sidebar-prefix noselect">$</div>
+                    <div class="grid-sidebar-count noselect">100</div>
+                    <div class="grid-sidebar-affix noselect"></div>
+                    <div class="grid-sidebar-item noselect"></div>
+                    <div class="grid-sidebar-prefix winAmount noselect">+$</div>
+                    <div class="grid-sidebar-count winAmount noselect"></div>
+                    <div class="grid-sidebar-affix noselect"></div>
+                    <div class="grid-sidebar-item noselect">SPINS:</div>
+                    <div class="grid-sidebar-prefix noselect"></div>
+                    <div class="grid-sidebar-count spins noselect">0</div>
+                    <div class="grid-sidebar-affix noselect"></div>
+                    <div class="grid-sidebar-item green noselect">WINS: <span class="wins noselect">0</span></div>
+                    <div class="grid-sidebar-prefix green noselect">$</div>
+                    <div class="grid-sidebar-count totalWins green noselect">0</div>
+                    <div class="grid-sidebar-affix noselect"></div>
+                    <div class="grid-sidebar-item noselect">LAST 3 WINS:</div>
+                    <div class="grid-sidebar-prefix noselect">$</div>
+                    <div class="grid-sidebar-count noselect">0</div>
+                    <div class="grid-sidebar-affix noselect"></div>
+                    <div class="grid-sidebar-item noselect"><span class="fruits noselect"></span></div>
+                    <div class="grid-sidebar-prefix noselect">$</div>
+                    <div class="grid-sidebar-count noselect">0</div>
+                    <div class="grid-sidebar-affix noselect"></div>
+                    <div class="grid-sidebar-item noselect"><span class="fruits noselect"></span></div>
+                    <div class="grid-sidebar-prefix noselect">$</div>
+                    <div class="grid-sidebar-count noselect">0</div>
+                    <div class="grid-sidebar-affix noselect"></div>
+                    <div class="grid-sidebar-item noselect"><span class="fruits noselect"></span></div>
+                    <div class="grid-sidebar-prefix noselect">$</div>
+                    <div class="grid-sidebar-count noselect">0</div>
+                    <div class="grid-sidebar-affix noselect"></div>
+                    <div class="grid-sidebar-item red noselect">LOSES: <span class="loses noselect">0</span></div>
+                    <div class="grid-sidebar-prefix red noselect">$</div>
+                    <div class="grid-sidebar-count totalLoses red noselect">0</div>
+                    <div class="grid-sidebar-affix noselect"></div>
+                    <div class="grid-sidebar-item noselect">W/L RATIO:</div>
+                    <div class="grid-sidebar-prefix noselect"></div>
+                    <div class="grid-sidebar-count wl-ratio noselect">0</div>
+                    <div class="grid-sidebar-affix noselect">%</div>
                 </div>
                 <div id="resultsField-options" class="comicFont">
-                    <div id="optionsBtn" class="btn centered"><button class="whtTxt"
+                    <div id="optionsBtn" class="btn centered noselect"><button class="whtTxt"
                             onclick="game.playField.notIMPLEMENTD()">OPTIONS</button></div>
                 </div>
             </div>
             <div id="playField-wrapper">
                 <div id="playField-grid">
-                    <div id="arrow1" class="arrow-left indicators">▲</div>
-                    <div id="arrow2" class="arrow-left indicators">▲</div>
-                    <div id="arrow3" class="arrow-left indicators">▲</div>
-                    <div id="arrow4" class="arrow-right indicators">▲</div>
-                    <div id="arrow5" class="arrow-right indicators">▲</div>
-                    <div id="arrow6" class="arrow-right indicators">▲</div>
-                    <div id="options" class="options centered comicFont">OPTIONS</div>
-                    <div id="reel1" class="reel centeredH"></div>
-                    <div id="reel2" class="reel centeredH"></div>
-                    <div id="reel3" class="reel centeredH"></div>
-                    <div id="holdBtn1" class="btn centered"><button class="btnHold whtTxt holdNormal"
+                    <div id="arrow1" class="arrow-left indicators noselect">▲</div>
+                    <div id="arrow2" class="arrow-left indicators noselect">▲</div>
+                    <div id="arrow3" class="arrow-left indicators noselect">▲</div>
+                    <div id="arrow4" class="arrow-right indicators noselect">▲</div>
+                    <div id="arrow5" class="arrow-right indicators noselect">▲</div>
+                    <div id="arrow6" class="arrow-right indicators noselect">▲</div>
+                    <div id="options" class="options centered comicFont noselect">OPTIONS</div>
+                    <div id="reel1" class="reel centeredH noselect"></div>
+                    <div id="reel2" class="reel centeredH noselect"></div>
+                    <div id="reel3" class="reel centeredH noselect"></div>
+                    <div id="holdBtn1" class="btn centered noselect"><button class="btnHold whtTxt holdNormal"
                             data-reel-number="0" onclick="game.playField.toogleHoldBtnClick(this)"
                             disabled>HOLD!</button></div>
-                    <div id="holdBtn2" class="btn centered"><button class="btnHold whtTxt holdNormal"
+                    <div id="holdBtn2" class="btn centered noselect"><button class="btnHold whtTxt holdNormal"
                             data-reel-number="1" onclick="game.playField.toogleHoldBtnClick(this)"
                             disabled>HOLD!</button></div>
-                    <div id="holdBtn3" class="btn centered"><button class="btnHold whtTxt holdNormal"
+                    <div id="holdBtn3" class="btn centered noselect"><button class="btnHold whtTxt holdNormal"
                             data-reel-number="2" onclick="game.playField.toogleHoldBtnClick(this)"
                             disabled>HOLD!</button></div>
-                    <div id="spinBtn" class="btn centered"><button class="whtTxt"
+                    <div id="spinBtn" class="btn centered noselect"><button class="whtTxt"
                             onclick="game.playField.spinBtnClick()">SPIN!</button></div>
                 </div>
             </div>
             <div id="rulesField-wrapper">
                 <div id="rulesField-grid" class="comicFont">
-                    <div id="rulesMain" class="grid-rules-title">RULES: </div>
-                    <div class="grid-rules-item"></div>
-                    <div class="grid-rules-fruits"></div>
-                    <div class="grid-rules-amount"></div>
-                    <div class="grid-rules-item"></div>
-                    <div class="grid-rules-fruits"></div>
-                    <div class="grid-rules-amount"></div>
-                    <div class="grid-rules-item"></div>
-                    <div class="grid-rules-fruits"></div>
-                    <div class="grid-rules-amount"></div>
-                    <div class="grid-rules-item"></div>
-                    <div class="grid-rules-fruits"></div>
-                    <div class="grid-rules-amount"></div>
-                    <div class="grid-rules-item"></div>
-                    <div class="grid-rules-fruits"></div>
-                    <div class="grid-rules-amount"></div>
-                    <div class="grid-rules-item"></div>
-                    <div class="grid-rules-fruits"></div>
-                    <div class="grid-rules-amount"></div>
-                    <div class="grid-rules-item"></div>
-                    <div class="grid-rules-fruits"></div>
-                    <div class="grid-rules-amount"></div>
-                    <div class="grid-rules-item"></div>
-                    <div class="grid-rules-fruits"></div>
-                    <div class="grid-rules-amount"></div>
-                    <div class="grid-rules-item"></div>
-                    <div class="grid-rules-fruits"></div>
-                    <div class="grid-rules-amount"></div>
-                    <div class="grid-rules-item"></div>
-                    <div class="grid-rules-fruits"></div>
-                    <div class="grid-rules-amount"></div>
+                    <div id="rulesMain" class="grid-rules-title noselect">RULES: </div>
+                    <div class="grid-rules-item noselect"></div>
+                    <div class="grid-rules-fruits noselect"></div>
+                    <div class="grid-rules-amount noselect"></div>
+                    <div class="grid-rules-item noselect"></div>
+                    <div class="grid-rules-fruits noselect"></div>
+                    <div class="grid-rules-amount noselect"></div>
+                    <div class="grid-rules-item noselect"></div>
+                    <div class="grid-rules-fruits noselect"></div>
+                    <div class="grid-rules-amount noselect"></div>
+                    <div class="grid-rules-item noselect"></div>
+                    <div class="grid-rules-fruits noselect"></div>
+                    <div class="grid-rules-amount noselect"></div>
+                    <div class="grid-rules-item noselect"></div>
+                    <div class="grid-rules-fruits noselect"></div>
+                    <div class="grid-rules-amount noselect"></div>
+                    <div class="grid-rules-item noselect"></div>
+                    <div class="grid-rules-fruits noselect"></div>
+                    <div class="grid-rules-amount noselect"></div>
+                    <div class="grid-rules-item noselect"></div>
+                    <div class="grid-rules-fruits noselect"></div>
+                    <div class="grid-rules-amount noselect"></div>
+                    <div class="grid-rules-item noselect"></div>
+                    <div class="grid-rules-fruits noselect"></div>
+                    <div class="grid-rules-amount noselect"></div>
+                    <div class="grid-rules-item noselect"></div>
+                    <div class="grid-rules-fruits noselect"></div>
+                    <div class="grid-rules-amount noselect"></div>
+                    <div class="grid-rules-item noselect"></div>
+                    <div class="grid-rules-fruits noselect"></div>
+                    <div class="grid-rules-amount noselect"></div>
                 </div>
                 <div id="rulesField-spin" class="comicFont">
-                    <div id="rulesSpinBtn" class="btn centered"><button class="whtTxt"
+                    <div id="rulesSpinBtn" class="btn centered noselect"><button class="whtTxt"
                             onclick="game.playField.spinBtnClick()">SPIN!</button></div>
                 </div>
             </div>
