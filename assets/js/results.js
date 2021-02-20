@@ -49,7 +49,6 @@ class ResultsField {
                 count.classList.remove("red", "fadeOut");
             }, timeout);
         } else {
-            log('win started')
             prefix.innerHTML = "+$";
             prefix.classList.add("green", "fadeOut");
             count.classList.add("green", "fadeOut");
