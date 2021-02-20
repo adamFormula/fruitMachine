@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/style.css" type="text/css" >
+    <link rel="stylesheet" href="./assets/css/style.css" type="text/css">
     <script src="./assets/js/animationFn.js" defer></script>
     <script src="./assets/js/playField.js" defer></script>
     <script src="./assets/js/rules.js" defer></script>
@@ -23,107 +23,120 @@
             <div class="popup">No WIN!</div>
         </div>
         <div id="main-grid">
-        <div id="resultsField-wrapper">
-            <div id="resultsField-grid" class="comicFont">
-                <div id="resultsMain" class="grid-sidebar-title">RESULTS: </div>
-                <div class="grid-sidebar-item">CASH💰:</div>
-                <div class="grid-sidebar-prefix">$</div>
-                <div class="grid-sidebar-count">100</div>
-                <div class="grid-sidebar-affix"></div>
-                <div class="grid-sidebar-item"></div>
-                <div class="grid-sidebar-prefix winAmount">+$</div>
-                <div class="grid-sidebar-count winAmount"></div>
-                <div class="grid-sidebar-affix"></div>
-                <div class="grid-sidebar-item">SPINS:</div>
-                <div class="grid-sidebar-prefix"></div>
-                <div class="grid-sidebar-count spins">0</div>
-                <div class="grid-sidebar-affix"></div>
-                <div class="grid-sidebar-item green">WINS: <span class="wins">0</span></div>
-                <div class="grid-sidebar-prefix green">$</div>
-                <div class="grid-sidebar-count totalWins green">0</div>
-                <div class="grid-sidebar-affix"></div>
-                <div class="grid-sidebar-item">LAST 3 WINS:</div>
-                <div class="grid-sidebar-prefix">$</div>
-                <div class="grid-sidebar-count">0</div>
-                <div class="grid-sidebar-affix"></div>
-                <div class="grid-sidebar-item"><span class="fruits"></span></div>
-                <div class="grid-sidebar-prefix">$</div>
-                <div class="grid-sidebar-count">0</div>
-                <div class="grid-sidebar-affix"></div>
-                <div class="grid-sidebar-item"><span class="fruits"></span></div>
-                <div class="grid-sidebar-prefix">$</div>
-                <div class="grid-sidebar-count">0</div>
-                <div class="grid-sidebar-affix"></div>
-                <div class="grid-sidebar-item"><span class="fruits"></span></div>
-                <div class="grid-sidebar-prefix">$</div>
-                <div class="grid-sidebar-count">0</div>
-                <div class="grid-sidebar-affix"></div>
-                <div class="grid-sidebar-item red">LOSES: <span class="loses">0</span></div>
-                <div class="grid-sidebar-prefix red">$</div>
-                <div class="grid-sidebar-count totalLoses red">0</div>
-                <div class="grid-sidebar-affix"></div>
-                <div class="grid-sidebar-item">W/L RATIO:</div>
-                <div class="grid-sidebar-prefix"></div>
-                <div class="grid-sidebar-count wl-ratio">0</div>
-                <div class="grid-sidebar-affix">%</div>
+            <div id="resultsField-wrapper">
+                <div id="resultsField-grid" class="comicFont">
+                    <div id="resultsMain" class="grid-sidebar-title">RESULTS: </div>
+                    <div class="grid-sidebar-item">CASH💰:</div>
+                    <div class="grid-sidebar-prefix">$</div>
+                    <div class="grid-sidebar-count">100</div>
+                    <div class="grid-sidebar-affix"></div>
+                    <div class="grid-sidebar-item"></div>
+                    <div class="grid-sidebar-prefix winAmount">+$</div>
+                    <div class="grid-sidebar-count winAmount"></div>
+                    <div class="grid-sidebar-affix"></div>
+                    <div class="grid-sidebar-item">SPINS:</div>
+                    <div class="grid-sidebar-prefix"></div>
+                    <div class="grid-sidebar-count spins">0</div>
+                    <div class="grid-sidebar-affix"></div>
+                    <div class="grid-sidebar-item green">WINS: <span class="wins">0</span></div>
+                    <div class="grid-sidebar-prefix green">$</div>
+                    <div class="grid-sidebar-count totalWins green">0</div>
+                    <div class="grid-sidebar-affix"></div>
+                    <div class="grid-sidebar-item">LAST 3 WINS:</div>
+                    <div class="grid-sidebar-prefix">$</div>
+                    <div class="grid-sidebar-count">0</div>
+                    <div class="grid-sidebar-affix"></div>
+                    <div class="grid-sidebar-item"><span class="fruits"></span></div>
+                    <div class="grid-sidebar-prefix">$</div>
+                    <div class="grid-sidebar-count">0</div>
+                    <div class="grid-sidebar-affix"></div>
+                    <div class="grid-sidebar-item"><span class="fruits"></span></div>
+                    <div class="grid-sidebar-prefix">$</div>
+                    <div class="grid-sidebar-count">0</div>
+                    <div class="grid-sidebar-affix"></div>
+                    <div class="grid-sidebar-item"><span class="fruits"></span></div>
+                    <div class="grid-sidebar-prefix">$</div>
+                    <div class="grid-sidebar-count">0</div>
+                    <div class="grid-sidebar-affix"></div>
+                    <div class="grid-sidebar-item red">LOSES: <span class="loses">0</span></div>
+                    <div class="grid-sidebar-prefix red">$</div>
+                    <div class="grid-sidebar-count totalLoses red">0</div>
+                    <div class="grid-sidebar-affix"></div>
+                    <div class="grid-sidebar-item">W/L RATIO:</div>
+                    <div class="grid-sidebar-prefix"></div>
+                    <div class="grid-sidebar-count wl-ratio">0</div>
+                    <div class="grid-sidebar-affix">%</div>
+                </div>
+                <div id="resultsField-options" class="comicFont">
+                    <div id="optionsBtn" class="btn centered"><button class="whtTxt"
+                            onclick="game.playField.notIMPLEMENTD()">OPTIONS</button></div>
+                </div>
             </div>
-            <div id="resultsField-options" class="comicFont"><div id="optionsBtn" class="btn centered"><button class="whtTxt" onclick="game.playField.spinBtnClick()">OPTIONS</button></div></div>
-        </div>
-        <div id="playField-wrapper">
-            <div id="playField-grid">
-                <div id="arrow1" class="arrow-left indicators">▲</div>
-                <div id="arrow2" class="arrow-left indicators">▲</div>
-                <div id="arrow3" class="arrow-left indicators">▲</div>
-                <div id="arrow4" class="arrow-right indicators">▲</div>
-                <div id="arrow5" class="arrow-right indicators">▲</div>
-                <div id="arrow6" class="arrow-right indicators">▲</div>
-                <div id="options" class="options centered comicFont">OPTIONS</div>
-                <div id="reel1" class="reel centeredH"></div>
-                <div id="reel2" class="reel centeredH"></div>
-                <div id="reel3" class="reel centeredH"></div>
-                <div id="holdBtn1" class="btn centered"><button class="btnHold whtTxt holdNormal" data-reel-number="0" onclick="game.playField.toogleHoldBtnClick(this)" disabled>HOLD!</button></div>
-                <div id="holdBtn2" class="btn centered"><button class="btnHold whtTxt holdNormal" data-reel-number="1" onclick="game.playField.toogleHoldBtnClick(this)" disabled>HOLD!</button></div>
-                <div id="holdBtn3" class="btn centered"><button class="btnHold whtTxt holdNormal" data-reel-number="2" onclick="game.playField.toogleHoldBtnClick(this)" disabled>HOLD!</button></div>
-                <div id="spinBtn" class="btn centered"><button class="whtTxt" onclick="game.playField.spinBtnClick()">SPIN!</button></div>
+            <div id="playField-wrapper">
+                <div id="playField-grid">
+                    <div id="arrow1" class="arrow-left indicators">▲</div>
+                    <div id="arrow2" class="arrow-left indicators">▲</div>
+                    <div id="arrow3" class="arrow-left indicators">▲</div>
+                    <div id="arrow4" class="arrow-right indicators">▲</div>
+                    <div id="arrow5" class="arrow-right indicators">▲</div>
+                    <div id="arrow6" class="arrow-right indicators">▲</div>
+                    <div id="options" class="options centered comicFont">OPTIONS</div>
+                    <div id="reel1" class="reel centeredH"></div>
+                    <div id="reel2" class="reel centeredH"></div>
+                    <div id="reel3" class="reel centeredH"></div>
+                    <div id="holdBtn1" class="btn centered"><button class="btnHold whtTxt holdNormal"
+                            data-reel-number="0" onclick="game.playField.toogleHoldBtnClick(this)"
+                            disabled>HOLD!</button></div>
+                    <div id="holdBtn2" class="btn centered"><button class="btnHold whtTxt holdNormal"
+                            data-reel-number="1" onclick="game.playField.toogleHoldBtnClick(this)"
+                            disabled>HOLD!</button></div>
+                    <div id="holdBtn3" class="btn centered"><button class="btnHold whtTxt holdNormal"
+                            data-reel-number="2" onclick="game.playField.toogleHoldBtnClick(this)"
+                            disabled>HOLD!</button></div>
+                    <div id="spinBtn" class="btn centered"><button class="whtTxt"
+                            onclick="game.playField.spinBtnClick()">SPIN!</button></div>
+                </div>
+            </div>
+            <div id="rulesField-wrapper">
+                <div id="rulesField-grid" class="comicFont">
+                    <div id="rulesMain" class="grid-rules-title">RULES: </div>
+                    <div class="grid-rules-item"></div>
+                    <div class="grid-rules-fruits"></div>
+                    <div class="grid-rules-amount"></div>
+                    <div class="grid-rules-item"></div>
+                    <div class="grid-rules-fruits"></div>
+                    <div class="grid-rules-amount"></div>
+                    <div class="grid-rules-item"></div>
+                    <div class="grid-rules-fruits"></div>
+                    <div class="grid-rules-amount"></div>
+                    <div class="grid-rules-item"></div>
+                    <div class="grid-rules-fruits"></div>
+                    <div class="grid-rules-amount"></div>
+                    <div class="grid-rules-item"></div>
+                    <div class="grid-rules-fruits"></div>
+                    <div class="grid-rules-amount"></div>
+                    <div class="grid-rules-item"></div>
+                    <div class="grid-rules-fruits"></div>
+                    <div class="grid-rules-amount"></div>
+                    <div class="grid-rules-item"></div>
+                    <div class="grid-rules-fruits"></div>
+                    <div class="grid-rules-amount"></div>
+                    <div class="grid-rules-item"></div>
+                    <div class="grid-rules-fruits"></div>
+                    <div class="grid-rules-amount"></div>
+                    <div class="grid-rules-item"></div>
+                    <div class="grid-rules-fruits"></div>
+                    <div class="grid-rules-amount"></div>
+                    <div class="grid-rules-item"></div>
+                    <div class="grid-rules-fruits"></div>
+                    <div class="grid-rules-amount"></div>
+                </div>
+                <div id="rulesField-spin" class="comicFont">
+                    <div id="rulesSpinBtn" class="btn centered"><button class="whtTxt"
+                            onclick="game.playField.spinBtnClick()">SPIN!</button></div>
+                </div>
             </div>
         </div>
-        <div id="rulesField-wrapper">
-            <div id="rulesField-grid" class="comicFont">
-                <div id="rulesMain" class="grid-rules-title">RULES: </div>
-                <div class="grid-rules-item"></div>
-                <div class="grid-rules-fruits"></div>
-                <div class="grid-rules-amount"></div>
-                <div class="grid-rules-item"></div>
-                <div class="grid-rules-fruits"></div>
-                <div class="grid-rules-amount"></div>
-                <div class="grid-rules-item"></div>
-                <div class="grid-rules-fruits"></div>
-                <div class="grid-rules-amount"></div>
-                <div class="grid-rules-item"></div>
-                <div class="grid-rules-fruits"></div>
-                <div class="grid-rules-amount"></div>
-                <div class="grid-rules-item"></div>
-                <div class="grid-rules-fruits"></div>
-                <div class="grid-rules-amount"></div>
-                <div class="grid-rules-item"></div>
-                <div class="grid-rules-fruits"></div>
-                <div class="grid-rules-amount"></div>
-                <div class="grid-rules-item"></div>
-                <div class="grid-rules-fruits"></div>
-                <div class="grid-rules-amount"></div>
-                <div class="grid-rules-item"></div>
-                <div class="grid-rules-fruits"></div>
-                <div class="grid-rules-amount"></div>
-                <div class="grid-rules-item"></div>
-                <div class="grid-rules-fruits"></div>
-                <div class="grid-rules-amount"></div>
-                <div class="grid-rules-item"></div>
-                <div class="grid-rules-fruits"></div>
-                <div class="grid-rules-amount"></div>
-            </div>
-            <div id="rulesField-spin" class="comicFont"><div id="rulesSpinBtn" class="btn centered"><button class="whtTxt" onclick="game.playField.spinBtnClick()">SPIN!</button></div></div>
-        </div>
-    </div>
     </div>
     </div>
 </body>
