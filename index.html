@@ -5,17 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Codystar&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/style-900.css" media="screen and (max-device-width: 900px)" type="text/css"/>
-    <link rel="stylesheet" href="./assets/css/style-700.css" media="screen and (max-device-width: 700px)" type="text/css"/>
-    <link rel="stylesheet" href="./assets/css/style-1024.css" media="screen and (width: 1024px)">
-    <link rel="stylesheet" href="./assets/css/style-1280.css" media="screen and (width: 1280px)">
-    <link rel="stylesheet" href="./assets/css/style-1366.css" media="screen and (width: 1366px)">
-    <link rel="stylesheet" href="./assets/css/style-889-321.css" media="screen and (device-width: 939px)  and (device-height: 427px)">
-    <link rel="stylesheet" href="./assets/css/style-889-321.css" media="screen and (width: 939px) and (height: 427px)">
-    <link rel="stylesheet" href="./assets/css/style.css" media="screen and (min-device-width: 1600px)" type="text/css" >
+    <link rel="stylesheet" href="./assets/css/style.css" type="text/css" >
     <script src="./assets/js/animationFn.js" defer></script>
     <script src="./assets/js/playField.js" defer></script>
     <script src="./assets/js/rules.js" defer></script>
@@ -31,8 +22,9 @@
         <div id="overlay" class="overlay hide">
             <div class="popup">No WIN!</div>
         </div>
-        <div class="sidebar-wrapper">
-            <div id="grid-sidebar" class="comicFont">
+        <div id="main-grid">
+        <div id="resultsField-wrapper">
+            <div id="resultsField-grid" class="comicFont">
                 <div id="resultsMain" class="grid-sidebar-title">RESULTS: </div>
                 <div class="grid-sidebar-item">CASH💰:</div>
                 <div class="grid-sidebar-prefix">$</div>
@@ -75,9 +67,10 @@
                 <div class="grid-sidebar-count wl-ratio">0</div>
                 <div class="grid-sidebar-affix">%</div>
             </div>
+            <div id="resultsField-options" class="comicFont"><div id="optionsBtn" class="btn centered"><button class="whtTxt" onclick="game.playField.spinBtnClick()">OPTIONS</button></div></div>
         </div>
-        <div class="mains-wrapper">
-            <div id="grid-container">
+        <div id="playField-wrapper">
+            <div id="playField-grid">
                 <div id="arrow1" class="arrow-left indicators">▲</div>
                 <div id="arrow2" class="arrow-left indicators">▲</div>
                 <div id="arrow3" class="arrow-left indicators">▲</div>
@@ -94,8 +87,8 @@
                 <div id="spinBtn" class="btn centered"><button class="whtTxt" onclick="game.playField.spinBtnClick()">SPIN!</button></div>
             </div>
         </div>
-        <div class="rules-wrapper">
-            <div id="grid-rules" class="comicFont">
+        <div id="rulesField-wrapper">
+            <div id="rulesField-grid" class="comicFont">
                 <div id="rulesMain" class="grid-rules-title">RULES: </div>
                 <div class="grid-rules-item"></div>
                 <div class="grid-rules-fruits"></div>
@@ -128,7 +121,9 @@
                 <div class="grid-rules-fruits"></div>
                 <div class="grid-rules-amount"></div>
             </div>
+            <div id="rulesField-spin" class="comicFont"><div id="rulesSpinBtn" class="btn centered"><button class="whtTxt" onclick="game.playField.spinBtnClick()">SPIN!</button></div></div>
         </div>
+    </div>
     </div>
     </div>
 </body>
