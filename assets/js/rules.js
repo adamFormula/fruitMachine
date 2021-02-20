@@ -3,7 +3,7 @@ class RulesField {
     constructor(parent) {
         this.parent = parent;
         this._itemsObj = Array.from(getEl(".grid-rules-item"));
-        this._fruitsObj = Array.from(getEl(".grid-rules-fruits"));
+        this._fruitsObj = Array.from(getEl(".grid-rules-fruit"));
         this._amountsObj = Array.from(getEl(".grid-rules-amount"));
     }
 

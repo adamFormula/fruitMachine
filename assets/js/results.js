@@ -16,10 +16,10 @@ class ResultsField {
         this._lastWins = { indexes: [4, 5, 6, 7] };
         this._loses = { amount: 0, count: 0, index: 8 };
         this._wlRatio = { amount: 0, index: 9 };
-        this.items = getEl(".grid-sidebar-item");
-        this.prefixes = getEl(".grid-sidebar-prefix");
-        this.counts = getEl(".grid-sidebar-count");
-        this.affixes = getEl(".grid-sidebar-affix");
+        this.items = getEl(".grid-results-item");
+        this.prefixes = getEl(".grid-results-prefix");
+        this.counts = getEl(".grid-results-count");
+        this.affixes = getEl(".grid-results-affix");
         this.cash = this.options.startCash;
         this.debug = debug
     }

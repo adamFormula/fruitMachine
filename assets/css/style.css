@@ -199,12 +199,12 @@ body {
   background-size: 1954px 971px;
 }
 
-#game-container {
+#game {
   position: relative;
   top: 10px;
 }
 
-#main-grid {
+#game-grid {
   display: grid;
   position: relative;
   grid-template-columns: 1fr 2.3fr 1fr;
@@ -213,12 +213,12 @@ body {
   grid-template-areas: "resultsField playField rulesField";
 }
 
-#resultsField-wrapper {
+#area-resultsField {
   grid-area: resultsField;
   grid-template-areas: "results";
 }
 
-#playField-wrapper {
+#area-playField {
   grid-area: playField;
   display: grid;
   background-color: #4babffd1;
@@ -229,13 +229,13 @@ body {
   border-radius: 48px;
 }
 
-#rulesField-wrapper {
+#area-rulesField {
   grid-area: rulesField;
   grid-template-areas: "rules";
 }
 
-#resultsField-wrapper,
-#rulesField-wrapper {
+#area-resultsField,
+#area-rulesField {
   display: grid;
   padding: 1vh 0.8vw 1.7vh 0.2vw;
   background-color: #f0f8ffd6;
@@ -243,7 +243,7 @@ body {
   align-self: start;
 }
 
-#resultsField-options {
+#resultsField-mobile {
   display: none;
   align-self: end;
   justify-self: center;
@@ -369,7 +369,7 @@ body {
   border-radius: 30px;
 }
 
-.winAmount {
+.opcaity-off {
   position: relative;
   opacity: 0;
 }
@@ -481,17 +481,17 @@ span.fruits {
   -webkit-text-stroke: black 0.4px;
 }
 
-.grid-sidebar-prefix {
+.grid-results-prefix {
   align-self: center;
   justify-self: right;
 }
 
-.grid-sidebar-count {
+.grid-results-count {
   align-self: center;
   justify-self: left;
 }
 
-.grid-sidebar-affix {
+.grid-results-affix {
   align-self: center;
   justify-self: left;
 }
@@ -501,7 +501,7 @@ span.fruits {
   justify-self: center;
 }
 
-.grid-rules-fruits {
+.grid-rules-fruit {
   justify-self: center;
   align-self: center;
   -webkit-text-stroke: black 0.7px;
@@ -512,13 +512,13 @@ span.fruits {
   align-self: center;
 }
 
-div#rulesMain {
+#rules-title {
   grid-column: 1 /4;
   align-self: center;
   justify-self: center;
 }
 
-div#resultsMain {
+#results-title {
   grid-column: 1/5;
   justify-self: center;
 }
@@ -543,42 +543,42 @@ button.start.comicFont {
   left: 91.9%;
 }
 
-.grid-sidebar-count.wl-ratio {
+.grid-results-count.wl-ratio {
   position: relative;
   left: -1.6vw;
 }
 
-.grid-sidebar-item {
+.grid-results-item {
   align-self: center;
 }
 
 /* MOBILE DEVICES */
 @media screen and (min-width: 812px) {
-  #resultsField-options {
+  #resultsField-mobile {
     display: block;
     grid-area: options;
     margin: 4vh 2vw;
   }
 
-  #rulesField-spin {
+  #rulesField-mobile {
     display: block;
     grid-area: spin;
     margin: 4vh 2vw;
   }
 
-  #optionsBtn > button,
-  #rulesSpinBtn > button {
+  #mobile-optionsBtn > button,
+  #mobile-rulesSpinBtn > button {
     background-color: yellow;
     font-size: 11vh;
     width: 100%;
   }
 
-  #rulesSpinBtn > button {
+  #mobile-rulesSpinBtn > button {
     background-color: green;
   }
 
-  #optionsBtn,
-  #rulesSpinBtn {
+  #mobile-optionsBtn,
+  #mobile-rulesSpinBtn {
     width: 100%;
     align-self: end;
     justify-self: center;
@@ -613,17 +613,17 @@ button.start.comicFont {
     height: 17vh;
     font-size: 15vh;
   }
-  #resultsField-wrapper {
+  #area-resultsField {
     grid-template-areas:
       "results"
       "options";
   }
-  #resultsField-wrapper,
-  #rulesField-wrapper {
+  #area-resultsField,
+  #area-rulesField {
     border-radius: 20px;
     grid-row-gap: 8vh;
   }
-  #rulesField-wrapper {
+  #area-rulesField {
     grid-template-areas:
       "rules"
       "spin";
@@ -671,16 +671,16 @@ button.start.comicFont {
     grid-template-rows: 1fr 56.1vh 1fr 1.7fr;
   }
 
-  #resultsField-options,
-  #rulesField-spin {
+  #resultsField-mobile,
+  #rulesField-mobile {
     display: none;
   }
 
-  #resultsField-wrapper {
+  #area-resultsField {
     grid-template-areas: "results";
   }
 
-  #rulesField-wrapper {
+  #area-rulesField {
     grid-template-areas: "rules";
   }
 
@@ -799,8 +799,8 @@ button.start.comicFont {
     height: 13vh;
     font-size: 13vh;
   }
-  #resultsField-wrapper,
-  #rulesField-wrapper {
+  #area-resultsField,
+  #area-rulesField {
     border-radius: 30px;
   }
   #resultsField-grid,

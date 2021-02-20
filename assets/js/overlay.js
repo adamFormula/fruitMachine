@@ -7,7 +7,7 @@ class Overlay {
     }
 
     showMsg = (time) => {
-        let overlay = getEl("#overlay");
+        let overlay = getEl("#game-overlay");
         if (!overlay.classList.contains("show")) {
             overlay.classList.add("show");
         }
@@ -25,7 +25,7 @@ class Overlay {
     }
 
     hideMsg = () => {
-        let overlay = getEl("#overlay");
+        let overlay = getEl("#game-overlay");
         if (!overlay.classList.contains("hide")) {
             overlay.classList.add("hide");
         }
