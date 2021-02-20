@@ -177,7 +177,7 @@
 }
 
 .fadeOut {
-  animation-duration: 5s;
+  animation-duration: 2s;
   animation-name: fadeOut;
 }
 
@@ -742,7 +742,7 @@ button.start.comicFont {
   .reel {
     line-height: 12vh;
     border: 5px solid rgb(0 0 0);
-    width: 7.5vw;
+    width: 6.5vw;
     font-size: 8vh;
   }
   .arrow-left,

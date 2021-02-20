@@ -44,15 +44,16 @@ class ResultsField {
             prefix.innerHTML = "-$";
             prefix.classList.add("red", "fadeOut");
             count.classList.add("red", "fadeOut");
-            setTimeout(function() {
+            setTimeout(()=> {
                 prefix.classList.remove("red", "fadeOut");
                 count.classList.remove("red", "fadeOut");
             }, timeout);
         } else {
+            log('win started')
             prefix.innerHTML = "+$";
             prefix.classList.add("green", "fadeOut");
             count.classList.add("green", "fadeOut");
-            setTimeout(function() {
+            setTimeout(()=> {
                 prefix.classList.remove("green", "fadeOut");
                 count.classList.remove("green", "fadeOut");
             }, timeout);

@@ -18,7 +18,7 @@ class SlotMachine {
         this.prizePower = 2;
         this.prizeBonus = 3.3;
         this.money = money;
-        SlotMachine.options = { startCash: this.money, spinDurations: [5, 10, 15], timeouts: { inOut: { win: 4000 }, overlay: { win: 5000, lose: 2000, hold: 3000 } } };
+        SlotMachine.options = { startCash: this.money, spinDurations: [5, 10, 15], timeouts: { inOut: { win: 3000 }, overlay: { win: 5000, lose: 2000, hold: 3000 } } };
         this.resultsField = new ResultsField(SlotMachine.options);
         this.playField = new PlayField(this, SlotMachine.options)
         this.overlay = new Overlay(SlotMachine.options)
