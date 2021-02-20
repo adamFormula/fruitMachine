@@ -285,23 +285,24 @@ class PlayField {
     };
 
     resetReels = () => {
-        let reelsFruitsSize = 0; //variable to keep sum of reels lengths
-        let activeReels = 1
-        while (reelsFruitsSize != activeReels * (this.parent.reelSize)) {
-            //keep randmosing reels untill total sum of their lenghts is equal to 3 * slots number
-            reelsFruitsSize = 0; // zero value of height at each iteration
-            activeReels = 0
+        let countActiveReelsSlots = 0; //variable to keep sum of reels lengths
+        let countActiveReels = 1
+        while (countActiveReelsSlots != countActiveReels * (this.parent.reelSize)) {
+            //keep randmosing reels untill total sum of their lenghts is equal to number of reels not on hold * slots number
+            //this is to confirm that correct number of slots was generated for all active reels
+            countActiveReelsSlots = 0; // zero total value of slots on active reels on iteration start
+            countActiveReels = 0
             this.reels.forEach((reel) => {
                 //iterate reels object
                 if (!reel.isOnHold) {
-                    activeReels++
+                    countActiveReels++
                     //if reel is not on hold
                     reel.fruitsList = this.parent //call parent method to generate and shuffle 3 times reel, before returning as string
                         .shuffle3Times(this.parent.generateReel())
                         .join("");
                     reel.scrollTop = 0; //reset reel scrollTop position to 0
                     if (this.parent.debug) log(reel.scrollHeight, reel.lnHeight); //show debug msg
-                    reelsFruitsSize += reel.fruitsList.length; //increment total reels height by reel height
+                    countActiveReelsSlots += reel.fruitsList.length; //increment total slots count of active reels by reel slots size
                 }
             });
         }
@@ -313,7 +314,7 @@ class PlayField {
             //iterate reels object
             if (!reel.isOnHold) {
                 //check if reel is not on hold
-                let distance = reel.lnHeight * (Math.floor(Math.random() * 10) + 20); //randomise reel animation distance
+                let distance = reel.lnHeight * (Math.floor(Math.random() * 100) + 20); //randomise reel animation distance
                 let duration = 2500 + reel.index * 500; //calculate duration as time in ms + (reel index * 500 ms) to give incremental delay to reels based on order
                 let easingFunction = easeOutQuad; //callback easing function for animation
                 this.pushPromise = new Promise((resolve, reject) => {
