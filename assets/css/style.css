@@ -237,7 +237,7 @@ body {
 #area-resultsField,
 #area-rulesField {
   display: grid;
-  padding: 1vh 0.8vw 1.7vh 0.2vw;
+  padding: 0.5vw 1vw 1vw 0.2vw;
   background-color: #f0f8ffd6;
   border-radius: 50px;
   align-self: start;
@@ -271,8 +271,8 @@ body {
 #rulesField-grid {
   display: grid;
   position: relative;
-  margin: 0vh 0.5vw 0vh 0vw;
-  padding: 1vh 0.5vw 1vh 0.5vw;
+  /* margin: 0vh 0.5vw 0vh 0vw; */
+  padding: 0.7vw 0.5vw 0.7vw 0.5vw;
   left: 0.4vw;
   box-shadow: #000000e0 3px 3px 6px 6px;
   background-color: rgb(0 0 0 / 74%);
@@ -668,7 +668,7 @@ button.start.comicFont {
       "spinBtn spinBtn spinBtn";
   }
   #playField-grid {
-    grid-template-rows: 1fr 56.1vh 1fr 1.7fr;
+    grid-template-rows: calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*72/100) calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*16/100);
   }
 
   #resultsField-mobile,
@@ -714,13 +714,13 @@ button.start.comicFont {
 /* On screens that are 1025px wide or more */
 @media screen and (min-width: 1025px) {
   #playField-grid {
-    grid-template-rows: 1fr 56.9vh 1fr 1.7fr;
+    grid-template-rows: calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*72/100) calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*16/100);
   }
   .popup {
     font-size: 15vh;
   }
   .comicFont {
-    font-size: 4.2vh;
+    font-size: 2.7vw;
     -webkit-text-stroke: #000000 1.3px;
   }
   .reel {
@@ -734,7 +734,7 @@ button.start.comicFont {
 /* On screens that are 1367px wide or more */
 @media screen and (min-width: 1367px) {
   #playField-grid {
-    grid-template-rows: 1fr 61vh 1fr 1.7fr;
+    grid-template-rows: calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*72/100) calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*16/100);
   }
   .popup {
     font-size: 14vh;
@@ -747,18 +747,18 @@ button.start.comicFont {
     line-height: 12vh;
     border: 5px solid rgb(0 0 0);
     width: 6.5vw;
-    font-size: 8vh;
+    font-size: calc(var(--vhoffset)*9/100);
   }
   .arrow-left,
   .arrow-right {
-    top: 36vh;
+    top: calc(var(--vhoffset)*39.7/100);
   }
 }
 
 /* On screens that are 1441px wide or more */
 @media screen and (min-width: 1441px) {
   #playField-grid {
-    grid-template-rows: 1fr 60vh 1fr 1.7fr;
+    grid-template-rows: calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*72/100) calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*16/100);
   }
 
   .popup {
@@ -777,7 +777,7 @@ button.start.comicFont {
 /* On screens that are 1537px wide or more */
 @media screen and (min-width: 1537px) {
   #playField-grid {
-    grid-template-rows: 1fr 62.1vh 1fr 1.7fr;
+    grid-template-rows: calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*72/100) calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*16/100);
   }
 
   .popup {
@@ -790,8 +790,10 @@ button.start.comicFont {
     -webkit-text-stroke: #000000 2px;
   }
   .reel {
-    line-height: 12vh;
+    /* line-height: var(--vh)px; */
     border: 6px solid rgb(0 0 0);
+    /* height: calc(var(
+    --vhoffset)*72/100); */
   }
 
   button.start.comicFont {

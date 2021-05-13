@@ -1,33 +1,52 @@
 "use strict";
-const debug = false
+const debug = true;
+let vh, vhoffset;
 
-const { log, warn, error } = console;
+const { log, warn, error, table, clear, group, groupEnd } = console;
 
-const genRandomNumber = (max) => {
-    return Math.floor(Math.random() * (max + 1));
+const genRandomNumber = (max) => Math.floor(Math.random() * (max + 1));
+
+const allEqual = (arr) => arr.every((val) => val === arr[0]);
+
+const adjustReels = () => {
+  const lnHeight = Math.round((vhoffset * 72) / 100 / 5);
+  game.playField.reels.forEach((reel) => {
+    const top = reel.scrollTop / reel.lnHeight;
+    reel.style.lineHeight = lnHeight + "px";
+    reel.lnHeight = lnHeight;
+    reel.scrollTop = top * reel.lnHeight;
+  });
+};
+
+const handleResize = () => {
+  vh = window.innerHeight;
+  vhoffset = vh - (vh * 16) / 100;
+  // Then we set the value in the --vh custom property to the root of the document
+  document.documentElement.style.setProperty("--vh", `${Math.round(vh)}px`);
+  document.documentElement.style.setProperty("--vhoffset", `${Math.round(vh - (vh * 16) / 100)}px`);
+  adjustReels();
 };
 
 const getEl = (selector) => {
-    switch (selector[0]) {
-        case "#":
-            return document.getElementById(selector.slice(1, selector.length));
-        case ".":
-            return document.getElementsByClassName(
-                selector.slice(1, selector.length)
-            );
-        default:
-            return document.getElementsByTagName(selector);
-    }
+  switch (selector[0]) {
+    case "#":
+      return document.getElementById(selector.slice(1, selector.length));
+    case ".":
+      return document.getElementsByClassName(selector.slice(1, selector.length));
+    default:
+      return document.getElementsByTagName(selector);
+  }
 };
 
-const roundTOlnHeight = (num,lnHeight) => Math.round(num / lnHeight) * lnHeight;
+const roundTOlnHeight = (num, lnHeight) => Math.round(num / lnHeight) * lnHeight;
 
-const simulateWin = () => {
-    game.simulateWin()
-};
-
+const simulateWin = () => game.simulateWin();
+clear();
 let game = new SlotMachine(3, 500, 25, "🍎,🍌,🍒,🥕,🍉,🍅,🥥,🥝,💎,💯", 100, debug);
-game.startGame()
+displayWelcomeMsg();
+window.onresize = handleResize;
+handleResize();
+game.startGame();
 
 //DONE Reset reels always with exception of hold reels
 //DONE buttons object extended with properties: isActive, isSelected etc...

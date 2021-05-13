@@ -13,9 +13,9 @@ class RulesField {
         const amounts = this._amountsObj
         const parent = this.parent
         this.parent.fruits.forEach((fruit, index) => {
-            setTimeout(function() { items[index].innerHTML = "3 x " }, 50 * (index + 1))
-            setTimeout(function() { fruits[index].innerHTML = `${fruit} ${fruit} ${fruit}` }, 70 * (index + 1))
-            setTimeout(function() { amounts[index].innerHTML = `$${parent.getPrize(fruit)}` }, 90 * (index + 1))
+            setTimeout(()=> { items[index].innerHTML = "3 x " }, 50 * (index + 1))
+            setTimeout(()=> { fruits[index].innerHTML = `${fruit} ${fruit} ${fruit}` }, 70 * (index + 1))
+            setTimeout(()=> { amounts[index].innerHTML = `$${parent.getPrize(fruit)}` }, 90 * (index + 1))
         });
     };
 
