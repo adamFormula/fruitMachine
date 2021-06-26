@@ -1,6 +1,11 @@
 "use strict";
+import { ResultsField } from "./results.js";
+import { Overlay } from "./overlay.js";
+import {PlayField} from "./playField.js"
+import { RulesField } from "./rules.js";
+import { table } from "./main.js";
 
-class SlotMachine {
+export class SlotMachine {
   constructor(
     reelsNumber = 3,
     reelSize = 500,

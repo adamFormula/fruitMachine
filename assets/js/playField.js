@@ -1,9 +1,10 @@
 "use strict";
-
+import { getEl, allEqual, vhoffset, table, debug, genRandomNumber } from "./main.js";
+import { easeOutQuad } from "./animationFn.js";
 // PlayField object is handling interactions between HTML elements placed in playField - central part
 // with reels. It handles reels animation, sounds and communicates with other objects including parent SlotMachine.
 
-class PlayField {
+export class PlayField {
   constructor(parent, options) {
     this.parent = parent;
     this.options = options;

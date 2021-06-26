@@ -1,12 +1,11 @@
 "use strict";
-const debug = true;
-let vh, vhoffset;
-
-const { log, warn, error, table, clear, group, groupEnd } = console;
-
-const genRandomNumber = (max) => Math.floor(Math.random() * (max + 1));
-
-const allEqual = (arr) => arr.every((val) => val === arr[0]);
+export const debug = true;
+export let vh, vhoffset;
+import { SlotMachine } from "./slotMachine.js";
+import { displayWelcomeMsg } from "./console.js";
+export const { log, warn, error, table, clear, group, groupEnd } = console;
+export const genRandomNumber = (max) => Math.floor(Math.random() * (max + 1));
+export const allEqual = (arr) => arr.every((val) => val === arr[0]);
 
 const adjustReels = () => {
   const lnHeight = Math.round((vhoffset * 72) / 100 / 5);
@@ -27,7 +26,7 @@ const handleResize = () => {
   adjustReels();
 };
 
-const getEl = (selector) => {
+export const getEl = (selector) => {
   switch (selector[0]) {
     case "#":
       return document.getElementById(selector.slice(1, selector.length));
@@ -42,7 +41,7 @@ const roundTOlnHeight = (num, lnHeight) => Math.round(num / lnHeight) * lnHeight
 
 const simulateWin = () => game.simulateWin();
 clear();
-let game = new SlotMachine(3, 500, 25, "🍎,🍌,🍒,🥕,🍉,🍅,🥥,🥝,💎,💯", 100, debug);
+window.game = new SlotMachine(3, 500, 25, "🍎,🍌,🍒,🥕,🍉,🍅,🥥,🥝,💎,💯", 100, debug);
 displayWelcomeMsg();
 window.onresize = handleResize;
 handleResize();

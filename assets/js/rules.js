@@ -1,5 +1,7 @@
 "use strict";
-class RulesField {
+import { getEl } from "./main.js";
+
+export class RulesField {
     constructor(parent) {
         this.parent = parent;
         this._itemsObj = Array.from(getEl(".grid-rules-item"));

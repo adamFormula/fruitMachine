@@ -1,5 +1,7 @@
 "use strict";
-class Overlay {
+import { getEl } from "./main.js";
+
+export class Overlay {
   constructor(options) {
     this.options = options;
     this._msg = "";

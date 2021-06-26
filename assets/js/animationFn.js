@@ -20,7 +20,7 @@ const easeInOutQuad = (t, b, c, d) => {
 
 const easeInOutSine = (t, b, c, d) => (-c / 2) * (Math.cos((Math.PI * t) / d) - 1) + b;
 
-const easeOutQuad = (t, b, c, d) => -c * (t /= d) * (t - 2) + b;
+export const easeOutQuad = (t, b, c, d) => -c * (t /= d) * (t - 2) + b;
 
 const easeInCubic = (t, b, c, d) => {
   let tc = (t /= d) * t * t;

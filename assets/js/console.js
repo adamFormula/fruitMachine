@@ -1,4 +1,6 @@
-const displayWelcomeMsg = () => {
+import { group, log, groupEnd } from "./main.js";
+
+export const displayWelcomeMsg = () => {
   group(
     "%cW%ce%cl%cc%co%cm%ce %cM%ce%cs%cs%ca%cg%ce",
     "color:rgb(238, 130, 171); background-color:grey",

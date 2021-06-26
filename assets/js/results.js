@@ -1,6 +1,7 @@
 "use strict";
+import { getEl } from "./main.js";
 
-class ResultsField {
+export class ResultsField {
   constructor(options, debug) {
     this.options = options;
     this._cash = { amount: this.options.startCash, index: 0 };
