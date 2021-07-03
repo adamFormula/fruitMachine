@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/animations.css" type="text/css">
     <link rel="stylesheet" href="./assets/css/style.css" type="text/css">
     <script src="./assets/js/main.js" type="module" defer></script>
     <title>Fruit Machine by Adam R. &copy; 2021</title>
@@ -69,15 +70,15 @@
             <div id="area-playField">
                 <div id="playField-grid">
                     <div id="arrow1" class="arrow-left indicators noselect">▲</div>
-                    <div id="arrow2" class="arrow-left indicators noselect">▲</div>
-                    <div id="arrow3" class="arrow-left indicators noselect">▲</div>
+                    <div id="reel1" class="reel centeredH noselect"></div>
                     <div id="arrow4" class="arrow-right indicators noselect">▲</div>
+                    <div id="arrow2" class="arrow-left indicators noselect">▲</div>
+                    <div id="reel2" class="reel centeredH noselect"></div>
                     <div id="arrow5" class="arrow-right indicators noselect">▲</div>
+                    <div id="arrow3" class="arrow-left indicators noselect">▲</div>
+                    <div id="reel3" class="reel centeredH noselect"></div>
                     <div id="arrow6" class="arrow-right indicators noselect">▲</div>
                     <div id="options" class="options centered comicFont noselect">OPTIONS</div>
-                    <div id="reel1" class="reel centeredH noselect"></div>
-                    <div id="reel2" class="reel centeredH noselect"></div>
-                    <div id="reel3" class="reel centeredH noselect"></div>
                     <div id="holdBtn1" class="btn centered noselect"><button class="btnHold whtTxt holdNormal"
                             data-reel-number="0" onclick="game.playField.toogleHoldBtnClick(this)"
                             disabled>HOLD!</button></div>

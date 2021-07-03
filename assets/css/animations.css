@@ -1,0 +1,177 @@
+@keyframes shineReels {
+	5% {
+		box-shadow: rgb(238, 130, 171) 0px 0px 35px 10px;
+	}
+	10% {
+		box-shadow: aliceblue 0px 0px 8px 4px;
+	}
+	15% {
+		box-shadow: rgb(115, 0, 130) 0px 0px 35px 10px;
+	}
+	20% {
+		box-shadow: aliceblue 0px 0px 8px 4px;
+	}
+	25% {
+		box-shadow: blue 0px 0px 35px 10px;
+	}
+	30% {
+		box-shadow: aliceblue 0px 0px 8px 4px;
+	}
+	35% {
+		box-shadow: green 0px 0px 35px 10px;
+	}
+	40% {
+		box-shadow: aliceblue 0px 0px 8px 4px;
+	}
+	45% {
+		box-shadow: yellow 0px 0px 35px 10px;
+	}
+	50% {
+		box-shadow: aliceblue 0px 0px 8px 4px;
+	}
+	55% {
+		box-shadow: orange 0px 0px 35px 10px;
+	}
+	60% {
+		box-shadow: aliceblue 0px 0px 8px 4px;
+	}
+	65% {
+		box-shadow: rgb(255, 115, 0) 0px 0px 35px 10px;
+	}
+	70% {
+		box-shadow: aliceblue 0px 0px 8px 4px;
+	}
+	75% {
+		box-shadow: rgb(255, 51, 0) 0px 0px 35px 10px;
+	}
+	80% {
+		box-shadow: aliceblue 0px 0px 8px 4px;
+	}
+	85% {
+		box-shadow: rgb(130, 0, 0) 0px 0px 35px 10px;
+	}
+	90% {
+		box-shadow: aliceblue 0px 0px 8px 4px;
+	}
+	95% {
+		box-shadow: rgb(238, 130, 130) 0px 0px 35px 10px;
+	}
+	100% {
+		box-shadow: aliceblue 0px 0px 8px 4px;
+	}
+}
+
+@keyframes shineButtonsHold {
+	from {
+		box-shadow: rgb(255, 38, 38) 0px 0px 35px 10px;
+	}
+	to {
+		box-shadow: aliceblue 0px 0px 8px 4px;
+	}
+}
+
+@keyframes shineButtonsHoldActive {
+	from {
+		box-shadow: rgb(0, 255, 76) 0px 0px 35px 10px;
+	}
+	to {
+		box-shadow: rgb(0, 255, 76) 0px 0px 25px 5px;
+	}
+}
+
+@keyframes shineButtonsHoldSelected {
+	from {
+		box-shadow: rgb(255, 38, 38) 0px 0px 35px 10px;
+	}
+	to {
+		box-shadow: rgb(255, 38, 38) 0px 0px 25px 5px;
+	}
+}
+
+@keyframes shineMineGrid {
+	5% {
+		background-color: rgb(238 130 171 / 74%);
+	}
+	10% {
+		background-color: #ddefffbd;
+	}
+	15% {
+		background-color: rgb(115 0 130 / 68%);
+	}
+	20% {
+		background-color: #ddefffbd;
+	}
+	25% {
+		background-color: #0000ffad;
+	}
+	30% {
+		background-color: #ddefffbd;
+	}
+	35% {
+		background-color: #008000b3;
+	}
+	40% {
+		background-color: #ddefffbd;
+	}
+	45% {
+		background-color: #ffff00ad;
+	}
+	50% {
+		background-color: #ddefffbd;
+	}
+	55% {
+		background-color: #ffa5009e;
+	}
+	60% {
+		background-color: #ddefffbd;
+	}
+	65% {
+		background-color: rgb(255 115 0 / 63%);
+	}
+	70% {
+		background-color: #ddefffbd;
+	}
+	75% {
+		background-color: rgb(255 51 0 / 65%);
+	}
+	80% {
+		background-color: #ddefffbd;
+	}
+	85% {
+		background-color: rgb(130 0 0 / 62%);
+	}
+	90% {
+		background-color: #ddefffbd;
+	}
+	95% {
+		background-color: rgb(238 130 130 / 68%);
+	}
+	100% {
+		background-color: #ddefffbd;
+	}
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+		top: 0px;
+	}
+	to {
+		opacity: 0;
+		top: -100px;
+	}
+}
+
+@keyframes shineButtonsSpin {
+	from {
+		box-shadow: rgb(38, 255, 49) 0px 0px 35px 10px;
+	}
+	to {
+		box-shadow: aliceblue 0px 0px 8px 4px;
+	}
+}
+
+.fadeOut {
+	animation-duration: 2s;
+	animation-name: fadeOut;
+}

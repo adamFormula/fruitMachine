@@ -8,7 +8,7 @@ export const genRandomNumber = (max) => Math.floor(Math.random() * (max + 1));
 export const allEqual = (arr) => arr.every((val) => val === arr[0]);
 
 const adjustReels = () => {
-  const lnHeight = Math.round((vhoffset * 72) / 100 / 5);
+  const lnHeight = Math.round((vhoffset * 72) /500);
   game.playField.reels.forEach((reel) => {
     const top = reel.scrollTop / reel.lnHeight;
     reel.style.lineHeight = lnHeight + "px";

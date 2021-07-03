@@ -1,812 +1,538 @@
 * {
-  margin: 0;
-  padding: 0;
-}
-
-@keyframes shineReels {
-  5% {
-    box-shadow: rgb(238, 130, 171) 0px 0px 35px 10px;
-  }
-  10% {
-    box-shadow: aliceblue 0px 0px 8px 4px;
-  }
-  15% {
-    box-shadow: rgb(115, 0, 130) 0px 0px 35px 10px;
-  }
-  20% {
-    box-shadow: aliceblue 0px 0px 8px 4px;
-  }
-  25% {
-    box-shadow: blue 0px 0px 35px 10px;
-  }
-  30% {
-    box-shadow: aliceblue 0px 0px 8px 4px;
-  }
-  35% {
-    box-shadow: green 0px 0px 35px 10px;
-  }
-  40% {
-    box-shadow: aliceblue 0px 0px 8px 4px;
-  }
-  45% {
-    box-shadow: yellow 0px 0px 35px 10px;
-  }
-  50% {
-    box-shadow: aliceblue 0px 0px 8px 4px;
-  }
-  55% {
-    box-shadow: orange 0px 0px 35px 10px;
-  }
-  60% {
-    box-shadow: aliceblue 0px 0px 8px 4px;
-  }
-  65% {
-    box-shadow: rgb(255, 115, 0) 0px 0px 35px 10px;
-  }
-  70% {
-    box-shadow: aliceblue 0px 0px 8px 4px;
-  }
-  75% {
-    box-shadow: rgb(255, 51, 0) 0px 0px 35px 10px;
-  }
-  80% {
-    box-shadow: aliceblue 0px 0px 8px 4px;
-  }
-  85% {
-    box-shadow: rgb(130, 0, 0) 0px 0px 35px 10px;
-  }
-  90% {
-    box-shadow: aliceblue 0px 0px 8px 4px;
-  }
-  95% {
-    box-shadow: rgb(238, 130, 130) 0px 0px 35px 10px;
-  }
-  100% {
-    box-shadow: aliceblue 0px 0px 8px 4px;
-  }
-}
-
-@keyframes shineButtonsHold {
-  from {
-    box-shadow: rgb(255, 38, 38) 0px 0px 35px 10px;
-  }
-  to {
-    box-shadow: aliceblue 0px 0px 8px 4px;
-  }
-}
-
-@keyframes shineButtonsHoldActive {
-  from {
-    box-shadow: rgb(0, 255, 76) 0px 0px 35px 10px;
-  }
-  to {
-    box-shadow: rgb(0, 255, 76) 0px 0px 25px 5px;
-  }
-}
-
-@keyframes shineButtonsHoldSelected {
-  from {
-    box-shadow: rgb(255, 38, 38) 0px 0px 35px 10px;
-  }
-  to {
-    box-shadow: rgb(255, 38, 38) 0px 0px 25px 5px;
-  }
-}
-
-@keyframes shineMineGrid {
-  5% {
-    background-color: rgb(238 130 171 / 74%);
-  }
-  10% {
-    background-color: #ddefffbd;
-  }
-  15% {
-    background-color: rgb(115 0 130 / 68%);
-  }
-  20% {
-    background-color: #ddefffbd;
-  }
-  25% {
-    background-color: #0000ffad;
-  }
-  30% {
-    background-color: #ddefffbd;
-  }
-  35% {
-    background-color: #008000b3;
-  }
-  40% {
-    background-color: #ddefffbd;
-  }
-  45% {
-    background-color: #ffff00ad;
-  }
-  50% {
-    background-color: #ddefffbd;
-  }
-  55% {
-    background-color: #ffa5009e;
-  }
-  60% {
-    background-color: #ddefffbd;
-  }
-  65% {
-    background-color: rgb(255 115 0 / 63%);
-  }
-  70% {
-    background-color: #ddefffbd;
-  }
-  75% {
-    background-color: rgb(255 51 0 / 65%);
-  }
-  80% {
-    background-color: #ddefffbd;
-  }
-  85% {
-    background-color: rgb(130 0 0 / 62%);
-  }
-  90% {
-    background-color: #ddefffbd;
-  }
-  95% {
-    background-color: rgb(238 130 130 / 68%);
-  }
-  100% {
-    background-color: #ddefffbd;
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    top: 0px;
-  }
-  to {
-    opacity: 0;
-    top: -100px;
-  }
-}
-
-@keyframes shineButtonsSpin {
-  from {
-    box-shadow: rgb(38, 255, 49) 0px 0px 35px 10px;
-  }
-  to {
-    box-shadow: aliceblue 0px 0px 8px 4px;
-  }
-}
-
-.fadeOut {
-  animation-duration: 2s;
-  animation-name: fadeOut;
+	margin: 0;
+	padding: 0;
 }
 
 .noselect {
-  user-select: none;
+	user-select: none;
 }
 
 .red {
-  color: red;
+	color: red;
 }
 
 .green {
-  color: green;
+	color: green;
 }
 
 body {
-  background-repeat: repeat;
-  background-image: url("./img/frutimachine-bckg.png");
-  background-size: 1954px 971px;
+	background-repeat: repeat;
+	background-image: url("./img/frutimachine-bckg.png");
+	background-size: 1954px 971px;
+	font-size: 16px;
 }
 
 #game {
-  position: relative;
-  top: 10px;
+	position: relative;
+	top: 0.75rem;
 }
 
 #game-grid {
-  display: grid;
-  position: relative;
-  grid-template-columns: 1fr 2.3fr 1fr;
-  grid-row-gap: 0vh;
-  grid-column-gap: 0.5vw;
-  grid-template-areas: "resultsField playField rulesField";
+	display: grid;
+	position: relative;
+	grid-template-columns: 1fr 2.3fr 1fr;
+	grid-row-gap: 0vh;
+	grid-column-gap: 0.5vw;
+	grid-template-areas: "resultsField playField rulesField";
 }
 
 #area-resultsField {
-  grid-area: resultsField;
-  grid-template-areas: "results";
+	grid-area: resultsField;
+	grid-template-areas: "results" "mobile-options";
 }
 
 #area-playField {
-  grid-area: playField;
-  display: grid;
-  background-color: #4babffd1;
-  animation: shineMineGrid 30s;
-  animation-iteration-count: infinite;
-  box-shadow: 0px 0px 20px 9px #565454;
-  padding: 1vh 0.9vw 1.5vh 0.9vw;
-  border-radius: 48px;
+	grid-area: playField;
+	display: grid;
+	background-color: #4babffd1;
+	animation: shineMineGrid 30s;
+	animation-iteration-count: infinite;
+	box-shadow: 0px 0px 20px 9px #565454;
+	padding: 1vh 0.9vw 1.5vh 0.9vw;
+	border-radius: 1em;
 }
 
 #area-rulesField {
-  grid-area: rulesField;
-  grid-template-areas: "rules";
+	grid-area: rulesField;
+	grid-template-areas: "rules" "spin";
 }
 
 #area-resultsField,
 #area-rulesField {
-  display: grid;
-  padding: 0.5vw 1vw 1vw 0.2vw;
-  background-color: #f0f8ffd6;
-  border-radius: 50px;
-  align-self: start;
+	display: grid;
+	padding: 0.5vw 1vw 1vw 0.2vw;
+	background-color: #f0f8ffd6;
+	border-radius: 0.5em;
+	font-size: 0.8rem;
+	align-self: start;
+	-webkit-text-stroke: black 0.3px;
 }
 
 #resultsField-mobile {
-  display: none;
-  align-self: end;
-  justify-self: center;
+	display: block;
+	grid-area: mobile-options;
+	margin: 0.5em;
+}
+
+#rulesField-mobile {
+	display: block;
+	grid-area: spin;
+	margin: 0.5em;
+}
+
+#resultsField-mobile {
+	align-self: end;
+	justify-self: center;
 }
 
 #playField-grid {
-  display: grid;
-  position: relative;
-  left: -0.4vw;
-  grid-template-columns: repeat(3, 1fr);
-  grid-row-gap: 3vh;
-  grid-column-gap: 0vw;
-  grid-template-areas:
-    "options options options"
-    "reel1 reel2 reel3"
-    "holdBtn1 holdBtn2 holdBtn3"
-    "spinBtn spinBtn spinBtn";
-  border-radius: 40px;
-  border: solid 1px #ffffff26;
-  box-shadow: 3px 3px 6px 6px #00000d;
-  background-color: black;
+	display: grid;
+	position: relative;
+	grid-template-columns: 0.1fr 1fr 1fr 1fr 0.1fr;
+	grid-row-gap: 0.5em;
+	grid-column-gap: 0.3em;
+	grid-template-areas: "arrow1 reel1 reel2 reel3 arrow6" ". holdBtn1 holdBtn2 holdBtn3 .";
+	border-radius: 1em;
+	border: solid 1px #ffffff26;
+	box-shadow: 3px 3px 6px 6px #00000d;
+	background-color: black;
 }
 
 #resultsField-grid,
 #rulesField-grid {
-  display: grid;
-  position: relative;
-  /* margin: 0vh 0.5vw 0vh 0vw; */
-  padding: 0.7vw 0.5vw 0.7vw 0.5vw;
-  left: 0.4vw;
-  box-shadow: #000000e0 3px 3px 6px 6px;
-  background-color: rgb(0 0 0 / 74%);
-  border-radius: 40px;
+	display: grid;
+	position: relative;
+	padding: 0.3em;
+	left: 0.2em;
+	box-shadow: #000000e0 3px 3px 6px 6px;
+	background-color: rgb(0 0 0 / 74%);
+	border-radius: 0.4em;
 }
 
 #resultsField-grid {
-  grid-area: results;
-  grid-template-columns: 56% 10% 21% 10%;
-  grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
-  grid-row-gap: 0%;
+	grid-area: results;
+	grid-template-columns: 56% 10% 21% 10%;
+	grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
+	grid-row-gap: 0%;
 }
 
 #rulesField-grid {
-  grid-area: rules;
-  grid-template-columns: 18% 59% 23%;
+	grid-area: rules;
+	grid-template-columns: 18% 59% 23%;
 }
 
 #options {
-  grid-area: options;
-  font-size: 6vh;
-  margin: 0vh 0vw -2.5vh 0vw;
+	display: none;
+	grid-area: options;
+	font-size: 6vh;
+	margin: 0vh 0vw -2.5vh 0vw;
 }
 
 #reel1 {
-  grid-area: reel1;
-  animation-duration: 11500ms;
-  animation-name: shineReels;
-  animation-iteration-count: infinite;
+	grid-area: reel1;
+	animation-duration: 11500ms;
+	animation-name: shineReels;
+	animation-iteration-count: infinite;
 }
 
 #reel2 {
-  grid-area: reel2;
-  animation-duration: 10500ms;
-  animation-name: shineReels;
-  animation-iteration-count: infinite;
+	grid-area: reel2;
+	animation-duration: 10500ms;
+	animation-name: shineReels;
+	animation-iteration-count: infinite;
 }
 
 #reel3 {
-  grid-area: reel3;
-  animation-duration: 12500ms;
-  animation-name: shineReels;
-  animation-iteration-count: infinite;
+	grid-area: reel3;
+	animation-duration: 12500ms;
+	animation-name: shineReels;
+	animation-iteration-count: infinite;
+}
+
+#holdBtn1,
+#holdBtn2,
+#holdBtn3 {
+	font-size: 0.5em;
+	padding: 0.1em;
+	width: 70%;
 }
 
 #holdBtn1 {
-  grid-area: holdBtn1;
+	grid-area: holdBtn1;
 }
 
 #holdBtn2 {
-  grid-area: holdBtn2;
+	grid-area: holdBtn2;
 }
 
 #holdBtn3 {
-  grid-area: holdBtn3;
+	grid-area: holdBtn3;
 }
 
 #spinBtn {
-  grid-area: spinBtn;
+	display: none;
+	grid-area: spinBtn;
 }
 
 .btn {
-  padding: 0.5vh 0.5vw 0.5vh 0.5vw;
-  box-shadow: aliceblue 0px 0px 18px 3px;
-  border-radius: 50px;
-  border: solid 4px black;
-  width: 51%;
+	padding: 0.3em;
+	box-shadow: aliceblue 0px 0px 18px 3px;
+	border-radius: 3em;
+	border: solid 4px black;
+	width: 90%;
 }
 
 .centered {
-  align-self: center;
-  justify-self: center;
-  text-align: center;
+	align-self: center;
+	justify-self: center;
+	text-align: center;
 }
 
 .centeredH {
-  justify-self: center;
-  text-align: center;
+	justify-self: center;
+	text-align: center;
 }
 
 .comicFont {
-  font-family: "Bangers", italic;
-  color: yellow;
-  line-height: 6.3vh;
+	font-family: "Bangers", italic;
+	color: yellow;
+	line-height: 1.6em;
 }
 
 .reel {
-  box-sizing: border-box;
-  font-size: 8.5vh;
-  overflow: hidden;
-  width: 7vw;
-  background-color: rgb(255 255 255 / 63%);
-  -webkit-text-stroke: #000000 0.5px;
-  border-radius: 30px;
+	position: relative;
+	top: 0.4em;
+	box-sizing: border-box;
+	font-size: calc(var(--vhoffset) * 72 / 500 /1.6);
+	overflow: hidden;
+	width: 3rem;
+	background-color: rgb(255 255 255 / 63%);
+	-webkit-text-stroke: #000000 0.5px;
+	border-radius: 1em;
+	height: calc(var(--vhoffset) * 72 / 500 /1.6 *8);
 }
 
 .opcaity-off {
-  position: relative;
-  opacity: 0;
+	position: relative;
+	opacity: 0;
 }
 
 .whtTxt {
-  color: white;
-  font-size: 2.4em;
-  font-family: "Bangers";
-  -webkit-text-stroke: 2px black;
+	color: white;
+	font-size: 1.9em;
+	font-family: "Bangers";
+	-webkit-text-stroke: 1px black;
 }
 
 .hide {
-  display: none;
+	display: none;
 }
 
 .show {
-  display: block;
+	display: block;
 }
 
 .overlay {
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  z-index: 20;
-  top: 0;
-  left: 0;
-  color: white;
-  overflow-x: hidden;
-  transition: 0.5s;
-  background: #89c8ff52;
-  backdrop-filter: blur(3px);
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	z-index: 20;
+	top: 0;
+	left: 0;
+	color: white;
+	overflow-x: hidden;
+	transition: 0.5s;
+	background: #89c8ff52;
+	backdrop-filter: blur(3px);
 }
 
 #options:hover,
 button:hover {
-  color: aqua;
+	color: aqua;
 }
 
 .holdNormal {
-  animation-duration: 1.5s;
-  animation-name: shineButtonsHold;
-  animation-iteration-count: infinite;
+	animation-duration: 1.5s;
+	animation-name: shineButtonsHold;
+	animation-iteration-count: infinite;
 }
 
 .holdActive {
-  animation-duration: 0.5s;
-  animation-name: shineButtonsHoldActive;
-  animation-iteration-count: infinite;
+	animation-duration: 0.5s;
+	animation-name: shineButtonsHoldActive;
+	animation-iteration-count: infinite;
 }
 
 .holdSelected {
-  animation-duration: 3s;
-  animation-name: shineButtonsHoldSelected;
-  animation-iteration-count: infinite;
+	animation-duration: 3s;
+	animation-name: shineButtonsHoldSelected;
+	animation-iteration-count: infinite;
 }
 
 button {
-  background-color: red;
-  width: 100%;
-  border-radius: 25px;
-  border: solid 2px black;
+	background-color: red;
+	width: 100%;
+	border-radius: 1em;
+	border: solid 1px black;
+	padding-inline: 0.5em;
 }
 
 #spinBtn > button {
-  background-color: green;
-  animation-duration: 2s;
-  animation-name: shineButtonsSpin;
-  animation-iteration-count: infinite;
+	display: none;
+	background-color: green;
+	animation-duration: 2s;
+	animation-name: shineButtonsSpin;
+	animation-iteration-count: infinite;
 }
 
 .popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  text-align: center;
-  font-weight: bold;
-  text-shadow: 4px 3px 27px black;
-  -webkit-text-stroke: 1px black;
-  color: red;
-  font-family: "Bangers", cursive;
-  transform: translate(-50%, -50%);
-  background-color: rgb(255 255 255 / 70%);
-  border-radius: 83px;
-}
-
-.arrow-left {
-  position: absolute;
-  top: 34.5vh;
-  transform: rotate(90deg);
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	text-align: center;
+	font-weight: bold;
+	text-shadow: 4px 3px 20px black;
+	-webkit-text-stroke: 0.2px black;
+	color: red;
+	font-family: "Bangers", cursive;
+	transform: translate(-50%, -50%);
+	background-color: rgb(255 255 255 / 70%);
+	border-radius: 1em;
+	font-size: 2.5em;
+	padding: 0.3em;
 }
 
 .indicators {
-  z-index: 1;
-  /* line-height: 0px; */
-  color: white;
-  font-size: 4.2vw;
-  opacity: 0.3;
+	position: absolute;
+	top: 50%;
+	height: 0%;
+	z-index: 1;
+	color: white;
+	font-size: 1em;
+	opacity: 0.3;
+}
+
+.arrow-left {
+	transform: rotate(90deg);
+  left: 0.75em;
 }
 
 .arrow-right {
-  position: absolute;
-  display: block;
-  top: 34.5vh;
-  left: 26.3%;
-  transform: rotate(270deg);
+	transform: rotate(270deg);
+  left: -0.5em;
+}
+
+#arrow1 {
+	grid-area: arrow1;
+}
+#arrow2 {
+	display: none;
+	grid-area: arrow2;
+}
+#arrow3 {
+	display: none;
+	grid-area: arrow3;
+}
+
+#arrow4 {
+	display: none;
+	grid-area: arrow4;
+}
+#arrow5 {
+	display: none;
+	grid-area: arrow5;
+}
+#arrow6 {
+	grid-area: arrow6;
 }
 
 span.fruits {
-  -webkit-text-stroke: black 0.4px;
+	-webkit-text-stroke: black 0.4px;
 }
 
 .grid-results-prefix {
-  align-self: center;
-  justify-self: right;
+	align-self: center;
+	justify-self: right;
 }
 
 .grid-results-count {
-  align-self: center;
-  justify-self: left;
+	align-self: center;
+	justify-self: left;
 }
 
 .grid-results-affix {
-  align-self: center;
-  justify-self: left;
+	align-self: center;
+	justify-self: left;
 }
 
 .grid-rules-item {
-  align-self: center;
-  justify-self: center;
+	align-self: center;
+	justify-self: center;
 }
 
 .grid-rules-fruit {
-  justify-self: center;
-  align-self: center;
-  -webkit-text-stroke: black 0.7px;
+	justify-self: center;
+	align-self: center;
+	/* -webkit-text-stroke: black 0.3px; */
 }
 
 .grid-rules-amount {
-  justify-self: center;
-  align-self: center;
+	justify-self: center;
+	align-self: center;
 }
 
 #rules-title {
-  grid-column: 1 /4;
-  align-self: center;
-  justify-self: center;
+	grid-column: 1 /4;
+	align-self: center;
+	justify-self: center;
 }
 
 #results-title {
-  grid-column: 1/5;
-  justify-self: center;
+	grid-column: 1/5;
+	justify-self: center;
 }
 
 button.start.comicFont {
-  width: 50%;
-  display: block;
-  margin: 29px auto;
-}
-
-#arrow2 {
-  left: 32%;
-}
-#arrow3 {
-  left: 65.6%;
-}
-
-#arrow5 {
-  left: 59.9%;
-}
-#arrow6 {
-  left: 91.9%;
+	width: 75%;
+	display: block;
+	margin: 1em auto;
+	font-size: 0.75em;
+	height: 1.2em;
 }
 
 .grid-results-count.wl-ratio {
-  position: relative;
-  left: -1.6vw;
+	position: relative;
+	left: -1.6vw;
 }
 
 .grid-results-item {
-  align-self: center;
+	align-self: center;
+}
+
+#mobile-rulesSpinBtn > button {
+	background-color: green;
+}
+
+#mobile-optionsBtn > button {
+	background-color: yellow;
 }
 
 /* MOBILE DEVICES */
 @media screen and (min-width: 812px) {
-  #resultsField-mobile {
-    display: block;
-    grid-area: options;
-    margin: 4vh 2vw;
-  }
-
-  #rulesField-mobile {
-    display: block;
-    grid-area: spin;
-    margin: 4vh 2vw;
-  }
-
-  #mobile-optionsBtn > button,
-  #mobile-rulesSpinBtn > button {
-    background-color: yellow;
-    font-size: 11vh;
-    width: 100%;
-  }
-
-  #mobile-rulesSpinBtn > button {
-    background-color: green;
-  }
-
-  #mobile-optionsBtn,
-  #mobile-rulesSpinBtn {
-    width: 100%;
-    align-self: end;
-    justify-self: center;
-  }
-
-  #playField-grid {
-    grid-template-rows: 71vh 1fr;
-  }
-
-  .popup {
-    font-size: 12vh;
-    border-radius: 30px;
-    padding: 3%;
-  }
-  .comicFont {
-    font-size: 5.2vh;
-    -webkit-text-stroke: #000000 1px;
-    line-height: 5.5vh;
-  }
-  .reel {
-    line-height: 14vh;
-    border: 3px solid rgb(0 0 0);
-    font-size: 10vh;
-    width: 8.5vw;
-  }
-  .arrow-left,
-  .arrow-right {
-    top: 31vh;
-  }
-  button.start.comicFont {
-    width: 33vw;
-    height: 17vh;
-    font-size: 15vh;
-  }
-  #area-resultsField {
-    grid-template-areas:
-      "results"
-      "options";
-  }
-  #area-resultsField,
-  #area-rulesField {
-    border-radius: 20px;
-    grid-row-gap: 8vh;
-  }
-  #area-rulesField {
-    grid-template-areas:
-      "rules"
-      "spin";
-  }
-  #resultsField-grid,
-  #rulesField-grid {
-    border-radius: 20px;
-  }
-  #playField-grid {
-    grid-template-areas:
-      "reel1 reel2 reel3"
-      "holdBtn1 holdBtn2 holdBtn3";
-  }
-  #spinBtn {
-    display: none;
-  }
-  #options {
-    display: none;
-  }
+	#game-grid {
+		font-size: 1rem;
+	}
 }
 
 @media screen and (min-width: 890px) {
-  .arrow-left,
-  .arrow-right {
-    top: 39vh;
-  }
-  .reel {
-    line-height: 13vh;
-    border: 3px solid rgb(0 0 0);
-    font-size: 10.5vh;
-    width: 8vw;
-  }
+	.reel {
+		border: 3px solid rgb(0 0 0);
+		font-size: 1.8em;
+		width: 1.5em;
+	}
 }
 /* TYPICAL LAPTOP/PC */
 /* On screens that are 1024px wide or more */
 @media screen and (min-width: 1024px) {
-  #playField-grid {
-    grid-template-areas:
-      "options options options"
-      "reel1 reel2 reel3"
-      "holdBtn1 holdBtn2 holdBtn3"
-      "spinBtn spinBtn spinBtn";
-  }
-  #playField-grid {
-    grid-template-rows: calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*72/100) calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*16/100);
-  }
+	#arrow2,
+	#arrow3,
+	#arrow4,
+	#arrow5 {
+		display: block;
+	}
+	#playField-grid {
+		column-gap: 1em;
+    row-gap: 1.5em;
+		grid-template-areas:
+			"options options options options options options options options options"
+			"arrow1 reel1 arrow4 arrow2 reel2 arrow5 arrow3 reel3 arrow6"
+			"holdBtn1 holdBtn1 holdBtn1 holdBtn2 holdBtn2 holdBtn2 holdBtn3 holdBtn3 holdBtn3"
+			"spinBtn spinBtn spinBtn spinBtn spinBtn spinBtn spinBtn spinBtn spinBtn";
+		grid-template-columns: repeat(9, 1fr);
+		grid-template-rows: calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*72/100) calc(var(--vhoffset)*6/100)
+			calc(var(--vhoffset)*16/100);
+	}
 
-  #resultsField-mobile,
-  #rulesField-mobile {
-    display: none;
-  }
+	#resultsField-mobile,
+	#rulesField-mobile {
+		display: none;
+	}
 
-  #area-resultsField {
-    grid-template-areas: "results";
-  }
+	#area-resultsField {
+		grid-template-areas: "results";
+	}
 
-  #area-rulesField {
-    grid-template-areas: "rules";
-  }
+	#area-rulesField {
+		grid-template-areas: "rules";
+	}
 
-  #options {
-    display: block;
-  }
-  #spinBtn {
-    display: block;
-  }
+	#options {
+		display: block;
+	}
+	#spinBtn {
+		display: block;
+	}
 
-  .popup {
-    font-size: 11vh;
-  }
-  .comicFont {
-    font-size: 3.1vh;
-    -webkit-text-stroke: #000000 1.5px;
-    line-height: 5.5vh;
-  }
-  .reel {
-    line-height: 11vh;
-    border: 3px solid rgb(0 0 0);
-    font-size: 8vh;
-    width: 8.5vw;
-  }
-  .arrow-left,
-  .arrow-right {
-    top: 36vh;
+	.popup {
+		font-size: 11vh;
+	}
+	.comicFont {
+		font-size: 2em;
+		-webkit-text-stroke: #000000 0.7px;
+		line-height: 1.4em;
+	}
+	.reel {
+		position: relative;
+		top: 0px;
+		border: 3px solid rgb(0 0 0);
+		font-size: 3.8em;
+		width: 1.5em;
+	}
+	.btnHold {
+		font-size: 4em;
+	}
+	#spinBtn > button {
+		display: block;
+	}
+	.indicators {
+		font-size: 2em;
+	}
+  .arrow-right{
+    left: -1em;
   }
 }
 
 /* On screens that are 1025px wide or more */
 @media screen and (min-width: 1025px) {
-  #playField-grid {
-    grid-template-rows: calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*72/100) calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*16/100);
-  }
-  .popup {
-    font-size: 15vh;
-  }
-  .comicFont {
-    font-size: 2.7vw;
-    -webkit-text-stroke: #000000 1.3px;
-  }
-  .reel {
-    line-height: 11.5vh;
-    border: 4px solid rgb(0 0 0);
-    font-size: 7.5vh;
-    width: 8vw;
-  }
-}
+	.reel {
+		border: 4px solid rgb(0 0 0);
+		font-size: 3.5em;
+		width: 1.5em; 
+	}
+} 
 
 /* On screens that are 1367px wide or more */
 @media screen and (min-width: 1367px) {
-  #playField-grid {
-    grid-template-rows: calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*72/100) calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*16/100);
-  }
-  .popup {
-    font-size: 14vh;
-  }
-  .comicFont {
-    font-size: 4vh;
-    -webkit-text-stroke: #000000 1.5px;
-  }
-  .reel {
-    line-height: 12vh;
-    border: 5px solid rgb(0 0 0);
-    width: 6.5vw;
-    font-size: calc(var(--vhoffset)*9/100);
-  }
-  .arrow-left,
-  .arrow-right {
-    top: calc(var(--vhoffset)*39.7/100);
-  }
+	.popup {
+		font-size: 6em;
+	}
+	.comicFont {
+		font-size: 4vh;
+		-webkit-text-stroke: #000000 1px;
+	}
+	.reel {
+		line-height: 12vh;
+		border: 5px solid rgb(0 0 0);
+		width: 6.5vw;
+		font-size: calc(var(--vhoffset)*9/100);
+	}
 }
 
 /* On screens that are 1441px wide or more */
 @media screen and (min-width: 1441px) {
-  #playField-grid {
-    grid-template-rows: calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*72/100) calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*16/100);
-  }
 
-  .popup {
-    font-size: 15vh;
-  }
-  .comicFont {
-    font-size: 4.4vh;
-    -webkit-text-stroke: #000000 1.5px;
-  }
-  .reel {
-    line-height: 12vh;
-    border: 6px solid rgb(0 0 0);
-  }
 }
 
 /* On screens that are 1537px wide or more */
 @media screen and (min-width: 1537px) {
-  #playField-grid {
-    grid-template-rows: calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*72/100) calc(var(--vhoffset)*6/100) calc(var(--vhoffset)*16/100);
-  }
-
-  .popup {
-    font-size: 17vh;
-    border-radius: 40px;
-    padding: 0%;
-  }
-  .comicFont {
-    font-size: 4.8vh;
-    -webkit-text-stroke: #000000 2px;
-  }
-  .reel {
-    /* line-height: var(--vh)px; */
-    border: 6px solid rgb(0 0 0);
-    /* height: calc(var(
-    --vhoffset)*72/100); */
-  }
-
-  button.start.comicFont {
-    width: 28vw;
-    height: 13vh;
-    font-size: 13vh;
-  }
-  #area-resultsField,
-  #area-rulesField {
-    border-radius: 30px;
-  }
-  #resultsField-grid,
-  #rulesField-grid {
-    border-radius: 25px;
-  }
 }
